@@ -57,7 +57,7 @@ checkChallenge t =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case Debug.log "msg" msg of
+    case msg of
         SizeChanged size ->
             ( { model | size = size }, Cmd.none )
 

@@ -8,9 +8,8 @@ var app = {
       var elmApp = Elm.Main.embed(document.querySelector(".app"));
       var self = this;
       elmApp.ports.playAudio.subscribe(function (url){
-        self.playAudio(url);
+        playAudio(getMediaURL(url));
       });
-      console.log(Media);
     },
 
     // Update DOM on a Received Event
@@ -23,19 +22,31 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
-    },
-
-    playAudio: function(url) {
-      var my_media = new Media(url,
-          function () {
-              console.log("playAudio():Audio Success");
-          },
-          function (err) {
-              console.log("playAudio():Audio Error: " + err);
-          }
-      );
-      my_media.play();
     }
 };
+
+function playAudio(url) {
+  var my_media = new Media(url,
+      function () {
+          console.log("playAudio():Audio Success");
+      },
+      function (err) {
+          console.log("playAudio():Audio Error: ")
+          console.log(JSON.stringify(err));
+      }
+  );
+  my_media.play();
+   setTimeout(function() {
+      my_media.stop();
+      my_media.release();
+   }, 500);
+
+  // Stop recording after 10 seconds
+}
+
+function  getMediaURL(s) {
+  if(window.device.platform.toLowerCase() === "android") return "/android_asset/www/" + s;
+  return s;
+}
 
 app.initialize();

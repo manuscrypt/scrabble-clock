@@ -10245,7 +10245,7 @@ var _user$project$Main$decrement = function (timer) {
 };
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p0 = A2(_elm_lang$core$Debug$log, 'msg', msg);
+		var _p0 = msg;
 		switch (_p0.ctor) {
 			case 'SizeChanged':
 				return {
