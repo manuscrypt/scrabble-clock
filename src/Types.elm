@@ -11,6 +11,7 @@ type alias Model =
     , mode : Mode
     , config : TimerConfig
     , size : Size
+    , challenge : Maybe Time
     }
 
 
@@ -48,7 +49,6 @@ type alias TimerConfig =
 type Mode
     = Stopped
     | Tick
-    | Challenge
 
 
 type Player

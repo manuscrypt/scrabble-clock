@@ -31,11 +31,35 @@ view model =
          , viewTimer posTwo ( w, h / 2 ) 0 (model.player == None || model.player == PlayerTwo) model.playerTwo
          ]
             ++ (if model.player /= None then
-                    [ viewButton (model.mode == Stopped) ( w / 2, h / 2 ) ]
+                    let
+                        secsLeft =
+                            Maybe.withDefault 0 <| model.challenge
+                    in
+                    [ viewButton (model.mode == Stopped) model.config.challenge secsLeft ( w / 2, h / 2 ) ]
                 else
                     []
                )
         )
+
+
+viewChallenge : Maybe a -> Svg msg
+viewChallenge mbChallenge =
+    case mbChallenge of
+        Nothing ->
+            g [] []
+
+        Just challenge ->
+            text_
+                [ textAnchor "middle"
+                , fontSize "60"
+                , fontWeight "bold"
+                , dominantBaseline "middle"
+                , stroke "black"
+                , strokeWidth "2"
+                , fill "black"
+                , transform <| translate ( 100, 100 )
+                ]
+                [ text <| toString challenge ]
 
 
 
@@ -49,7 +73,21 @@ viewTimer ( posX, posY ) ( w, h ) rot isActive timer =
             [ textAnchor "middle"
             , fontSize "120"
             , fontWeight "bold"
-            , stroke "white"
+            , dominantBaseline "middle"
+            , stroke "black"
+            , strokeWidth "2"
+            , opacity
+                (if isActive then
+                    "1"
+                 else
+                    "0.5"
+                )
+            , fill
+                (if isActive then
+                    "black"
+                 else
+                    "grey"
+                )
             ]
             [ text <| Time.format "%M:%S" timer.time ]
         , tapRect isActive ( posX, posY ) ( w, h ) timer.player
@@ -85,16 +123,16 @@ tapRect isActive ( posX, posY ) ( w, h ) player =
 -- pause button
 
 
-viewButton : Bool -> ( Float, Float ) -> Svg Msg
-viewButton stopped ( posX, posY ) =
+viewButton : Bool -> Float -> Float -> ( Float, Float ) -> Svg Msg
+viewButton stopped challengeSecs secsLeft ( posX, posY ) =
     let
         ( w, h ) =
             ( 66, 60 )
     in
     g
-        [ transform <| "translate(" ++ toString posX ++ "," ++ toString posY ++ ")"
+        [ transform <| translate ( posX, posY )
         ]
-        [ pause stopped
+        [ pause stopped challengeSecs secsLeft
         , rect
             [ x <| toString (-w / 2)
             , y <| toString (-h / 2)
@@ -107,27 +145,59 @@ viewButton stopped ( posX, posY ) =
         ]
 
 
-pause : Bool -> Svg Msg
-pause stopped =
-    g []
-        [ bar stopped ( -20, 0 ) ( 26, 60 )
-        , bar stopped ( 20, 0 ) ( 26, 60 )
-        ]
+pause : Bool -> Float -> Float -> Svg Msg
+pause stopped challengeSecs secsLeft =
+    let
+        half =
+            challengeSecs / 2
 
+        c1 =
+            Basics.min half secsLeft / half
 
-bar : Bool -> ( Float, Float ) -> ( Float, Float ) -> Svg Msg
-bar stopped ( posX, posY ) ( w, h ) =
-    rect
-        [ x <| toString (-w / 2)
-        , y <| toString (-h / 2)
-        , width <| toString w
-        , height <| toString h
-        , transform <| "translate(" ++ toString posX ++ "," ++ toString posY ++ ")"
-        , fill <|
-            if stopped then
-                "red"
+        c2 =
+            if c1 >= 1 then
+                (secsLeft - half) / half
             else
-                "grey"
-        , stroke "black"
+                0
+    in
+    g []
+        [ bar stopped c1 ( -20, 0 ) ( 26, 60 )
+        , bar stopped c2 ( 20, 0 ) ( 26, 60 )
         ]
-        []
+
+
+bar : Bool -> Float -> ( Float, Float ) -> ( Float, Float ) -> Svg Msg
+bar stopped secsPerc ( posX, posY ) ( w, h ) =
+    g [ transform <| translate ( posX, posY ) ]
+        [ rect
+            [ x <| toString (-w / 2)
+            , y <| toString (-h / 2)
+            , width <| toString w
+            , height <| toString h
+            , fill <|
+                if stopped then
+                    "red"
+                else
+                    "grey"
+            , stroke "black"
+            ]
+            []
+        , rect
+            [ x <| toString (-w / 2)
+            , y <| toString (-h / 2)
+            , width <| toString w
+            , height <| toString (h * secsPerc)
+            , fill <|
+                if stopped then
+                    "none"
+                else
+                    "orange"
+            , stroke "none"
+            ]
+            []
+        ]
+
+
+translate : ( a, b ) -> String
+translate ( posX, posY ) =
+    "translate(" ++ toString posX ++ "," ++ toString posY ++ ")"

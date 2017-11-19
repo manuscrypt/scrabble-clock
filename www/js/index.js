@@ -6,8 +6,11 @@ var app = {
 
     onDeviceReady: function() {
       var elmApp = Elm.Main.embed(document.querySelector(".app"));
-
-      // You can do the regular plumbing for subscribing to ports, here.
+      var self = this;
+      elmApp.ports.playAudio.subscribe(function (url){
+        self.playAudio(url);
+      });
+      console.log(Media);
     },
 
     // Update DOM on a Received Event
@@ -20,6 +23,18 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+    },
+
+    playAudio: function(url) {
+      var my_media = new Media(url,
+          function () {
+              console.log("playAudio():Audio Success");
+          },
+          function (err) {
+              console.log("playAudio():Audio Error: " + err);
+          }
+      );
+      my_media.play();
     }
 };
 
