@@ -1,0 +1,5 @@
+elm-stuff/
+fastlane/installer/
+platforms/
+node_modules/
+plugins/
