@@ -9809,14 +9809,7 @@ var _user$project$View$bar = F3(
 									_1: {
 										ctor: '::',
 										_0: _elm_lang$svg$Svg_Attributes$stroke('black'),
-										_1: {
-											ctor: '::',
-											_0: _zwilias$elm_touch_events$Touch$onEnd(
-												function (event) {
-													return _user$project$Types$Toggle;
-												}),
-											_1: {ctor: '[]'}
-										}
+										_1: {ctor: '[]'}
 									}
 								}
 							}
@@ -9902,7 +9895,7 @@ var _user$project$View$viewButton = F2(
 											_0: _elm_lang$svg$Svg_Attributes$fill('transparent'),
 											_1: {
 												ctor: '::',
-												_0: _zwilias$elm_touch_events$Touch$onEnd(
+												_0: _zwilias$elm_touch_events$Touch$onStart(
 													function (event) {
 														return _user$project$Types$Toggle;
 													}),
@@ -9964,7 +9957,7 @@ var _user$project$View$tapRect = F4(
 				},
 				isActive ? {
 					ctor: '::',
-					_0: _zwilias$elm_touch_events$Touch$onEnd(
+					_0: _zwilias$elm_touch_events$Touch$onStart(
 						function (event) {
 							return _user$project$Types$Tapped(player);
 						}),

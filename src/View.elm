@@ -73,7 +73,7 @@ tapRect isActive ( posX, posY ) ( w, h ) player =
          , fill "transparent"
          ]
             ++ (if isActive then
-                    [ Touch.onEnd (\event -> Tapped player) ]
+                    [ Touch.onStart (\event -> Tapped player) ]
                 else
                     []
                )
@@ -101,7 +101,7 @@ viewButton stopped ( posX, posY ) =
             , width <| toString w
             , height <| toString h
             , fill "transparent"
-            , Touch.onEnd (\event -> Toggle)
+            , Touch.onStart (\event -> Toggle)
             ]
             []
         ]
@@ -129,6 +129,5 @@ bar stopped ( posX, posY ) ( w, h ) =
             else
                 "grey"
         , stroke "black"
-        , Touch.onEnd (\event -> Toggle)
         ]
         []
