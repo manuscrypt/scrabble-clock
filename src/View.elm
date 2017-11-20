@@ -12,13 +12,18 @@ type alias Pos =
     ( Float, Float )
 
 
+wh : Model -> ( Float, Float )
+wh model =
+    ( toFloat model.size.width
+    , toFloat model.size.height
+    )
+
+
 view : Model -> Svg Msg
 view model =
     let
         ( w, h ) =
-            ( toFloat model.size.width
-            , toFloat model.size.height
-            )
+            wh model
 
         posOne =
             ( w / 2, h / 4 )
@@ -29,20 +34,40 @@ view model =
     svg [ viewBox <| "0 0 " ++ toString w ++ " " ++ toString h ]
         ([ viewTimer 180 posOne model model.playerOne
          , viewTimer 0 posTwo model model.playerTwo
+         , viewResetButton (resetButtonPos model) model
          ]
             ++ (case model.mode of
                     GameOver _ ->
-                        [ viewResetButton ( w / 2, h / 2 ) model ]
+                        []
 
                     _ ->
                         if model.player /= None then
                             [ viewButton model
-                            , viewResetButton ( w / 10, h / 2 ) model
                             ]
                         else
                             []
                )
         )
+
+
+resetButtonPos : Model -> ( Float, Float )
+resetButtonPos model =
+    let
+        ( w, h ) =
+            wh model
+    in
+    if model.player /= None then
+        ( w / 10, h / 2 )
+    else
+        case model.mode of
+            GameOver _ ->
+                ( w / 2, h / 2 )
+
+            Stopped ->
+                ( w / 10, h / 2 )
+
+            Tick ->
+                ( -1000, 0 )
 
 
 viewChallenge : Maybe a -> Svg msg

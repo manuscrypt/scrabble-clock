@@ -10008,7 +10008,7 @@ var _user$project$View$viewResetButton = F2(
 										_0: _elm_lang$svg$Svg_Attributes$xlinkHref('img/restart.svg'),
 										_1: {
 											ctor: '::',
-											_0: _zwilias$elm_touch_events$Touch$onStart(
+											_0: _zwilias$elm_touch_events$Touch$onEnd(
 												function (event) {
 													return _user$project$Types$Reset;
 												}),
@@ -10232,14 +10232,35 @@ var _user$project$View$viewChallenge = function (mbChallenge) {
 			});
 	}
 };
-var _user$project$View$view = function (model) {
-	var _p16 = {
+var _user$project$View$wh = function (model) {
+	return {
 		ctor: '_Tuple2',
 		_0: _elm_lang$core$Basics$toFloat(model.size.width),
 		_1: _elm_lang$core$Basics$toFloat(model.size.height)
 	};
+};
+var _user$project$View$resetButtonPos = function (model) {
+	var _p16 = _user$project$View$wh(model);
 	var w = _p16._0;
 	var h = _p16._1;
+	if (!_elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None)) {
+		return {ctor: '_Tuple2', _0: w / 10, _1: h / 2};
+	} else {
+		var _p17 = model.mode;
+		switch (_p17.ctor) {
+			case 'GameOver':
+				return {ctor: '_Tuple2', _0: w / 2, _1: h / 2};
+			case 'Stopped':
+				return {ctor: '_Tuple2', _0: w / 10, _1: h / 2};
+			default:
+				return {ctor: '_Tuple2', _0: -1000, _1: 0};
+		}
+	}
+};
+var _user$project$View$view = function (model) {
+	var _p18 = _user$project$View$wh(model);
+	var w = _p18._0;
+	var h = _p18._1;
 	var posOne = {ctor: '_Tuple2', _0: w / 2, _1: h / 4};
 	var posTwo = {ctor: '_Tuple2', _0: w / 2, _1: (3 * h) / 4};
 	return A2(
@@ -10267,32 +10288,25 @@ var _user$project$View$view = function (model) {
 				_1: {
 					ctor: '::',
 					_0: A4(_user$project$View$viewTimer, 0, posTwo, model, model.playerTwo),
-					_1: {ctor: '[]'}
-				}
-			},
-			function () {
-				var _p17 = model.mode;
-				if (_p17.ctor === 'GameOver') {
-					return {
+					_1: {
 						ctor: '::',
 						_0: A2(
 							_user$project$View$viewResetButton,
-							{ctor: '_Tuple2', _0: w / 2, _1: h / 2},
+							_user$project$View$resetButtonPos(model),
 							model),
 						_1: {ctor: '[]'}
-					};
+					}
+				}
+			},
+			function () {
+				var _p19 = model.mode;
+				if (_p19.ctor === 'GameOver') {
+					return {ctor: '[]'};
 				} else {
 					return (!_elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None)) ? {
 						ctor: '::',
 						_0: _user$project$View$viewButton(model),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_user$project$View$viewResetButton,
-								{ctor: '_Tuple2', _0: w / 10, _1: h / 2},
-								model),
-							_1: {ctor: '[]'}
-						}
+						_1: {ctor: '[]'}
 					} : {ctor: '[]'};
 				}
 			}()));
