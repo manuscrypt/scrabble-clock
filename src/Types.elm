@@ -18,6 +18,7 @@ type alias Model =
 type Msg
     = Tapped Player
     | Toggle
+    | Reset
     | TickSecond Time
     | SizeChanged Size
 
@@ -39,6 +40,14 @@ defaultConfig =
     }
 
 
+overtimeConfig : TimerConfig
+overtimeConfig =
+    { duration = 1 * Time.second
+    , overtime = 2 * Time.second
+    , challenge = 2 * Time.second
+    }
+
+
 type alias TimerConfig =
     { duration : Seconds
     , overtime : Seconds
@@ -49,6 +58,7 @@ type alias TimerConfig =
 type Mode
     = Stopped
     | Tick
+    | GameOver Player
 
 
 type Player

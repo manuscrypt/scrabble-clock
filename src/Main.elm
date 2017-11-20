@@ -12,25 +12,43 @@ import Window exposing (Size)
 main : Program Never Model Msg
 main =
     Html.program
-        { init = init
+        { init = reset
         , update = update
         , view = view
         , subscriptions = subscriptions
         }
 
 
-init : ( Model, Cmd Msg )
-init =
-    ( { playerOne = { player = PlayerOne, time = defaultConfig.duration }
-      , playerTwo = { player = PlayerTwo, time = defaultConfig.duration }
+reset : ( Model, Cmd Msg )
+reset =
+    init defaultConfig
+
+
+initPlayer : TimerConfig -> Player -> Timer
+initPlayer config player =
+    { player = player, time = config.duration }
+
+
+init : TimerConfig -> ( Model, Cmd Msg )
+init config =
+    ( { playerOne = initPlayer config PlayerOne
+      , playerTwo = initPlayer config PlayerTwo
       , player = None
       , mode = Stopped
-      , config = defaultConfig
+      , config = config
       , size = { width = 0, height = 0 }
       , challenge = Nothing
       }
     , Task.perform SizeChanged Window.size
     )
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    if model.mode == Tick then
+        Time.every Time.second TickSecond
+    else
+        Sub.none
 
 
 
@@ -57,7 +75,7 @@ checkChallenge t =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
+    case Debug.log "msg" msg of
         SizeChanged size ->
             ( { model | size = size }, Cmd.none )
 
@@ -66,26 +84,33 @@ update msg model =
                 nextChallenge =
                     Maybe.map decTime model.challenge
                         |> Maybe.andThen checkChallenge
+
+                nextModel =
+                    case model.player of
+                        None ->
+                            model
+
+                        PlayerOne ->
+                            { model
+                                | playerOne = decrement model.playerOne
+                                , challenge = nextChallenge
+                            }
+
+                        PlayerTwo ->
+                            { model
+                                | playerTwo = decrement model.playerTwo
+                                , challenge = nextChallenge
+                            }
             in
-            case model.player of
-                None ->
-                    ( model, Cmd.none )
+            if nextModel.playerOne.time <= -nextModel.config.overtime then
+                { nextModel | mode = GameOver PlayerOne } ! []
+            else if nextModel.playerTwo.time <= -nextModel.config.overtime then
+                { nextModel | mode = GameOver PlayerTwo } ! []
+            else
+                nextModel ! []
 
-                PlayerOne ->
-                    ( { model
-                        | playerOne = decrement model.playerOne
-                        , challenge = nextChallenge
-                      }
-                    , Cmd.none
-                    )
-
-                PlayerTwo ->
-                    ( { model
-                        | playerTwo = decrement model.playerTwo
-                        , challenge = nextChallenge
-                      }
-                    , Cmd.none
-                    )
+        Reset ->
+            reset
 
         Toggle ->
             { model
@@ -96,16 +121,21 @@ update msg model =
 
                         Tick ->
                             Stopped
-                , challenge = Nothing
-            }
-                ! [ playAudio
-                        (case model.mode of
-                            Stopped ->
-                                "snd/resume.mp3"
 
-                            Tick ->
-                                "snd/pause.mp3"
-                        )
+                        GameOver _ ->
+                            Stopped
+                , challenge = Nothing
+                , player = None
+            }
+                ! [ case model.mode of
+                        Stopped ->
+                            playAudio "snd/resume.mp3"
+
+                        Tick ->
+                            playAudio "snd/pause.mp3"
+
+                        GameOver _ ->
+                            Cmd.none
                   ]
 
         Tapped player ->
@@ -134,11 +164,3 @@ update msg model =
               }
             , playAudio "snd/click.mp3"
             )
-
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    if model.mode /= Stopped then
-        Time.every Time.second TickSecond
-    else
-        Sub.none

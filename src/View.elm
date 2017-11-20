@@ -2,6 +2,7 @@ module View exposing (..)
 
 import Svg exposing (Svg, g, path, rect, svg, text, text_)
 import Svg.Attributes exposing (..)
+import Time exposing (Time)
 import Time.Format as Time
 import Touch
 import Types exposing (..)
@@ -14,11 +15,10 @@ type alias Pos =
 view : Model -> Svg Msg
 view model =
     let
-        { width, height } =
-            model.size
-
         ( w, h ) =
-            ( toFloat width, toFloat height )
+            ( toFloat model.size.width
+            , toFloat model.size.height
+            )
 
         posOne =
             ( w / 2, h / 4 )
@@ -26,18 +26,21 @@ view model =
         posTwo =
             ( w / 2, 3 * h / 4 )
     in
-    svg [ viewBox <| "0 0 " ++ toString width ++ " " ++ toString height ]
-        ([ viewTimer posOne ( w, h / 2 ) 180 (model.player == None || model.player == PlayerOne) model.playerOne
-         , viewTimer posTwo ( w, h / 2 ) 0 (model.player == None || model.player == PlayerTwo) model.playerTwo
+    svg [ viewBox <| "0 0 " ++ toString w ++ " " ++ toString h ]
+        ([ viewTimer 180 posOne model model.playerOne
+         , viewTimer 0 posTwo model model.playerTwo
          ]
-            ++ (if model.player /= None then
-                    let
-                        secsLeft =
-                            Maybe.withDefault 0 <| model.challenge
-                    in
-                    [ viewButton (model.mode == Stopped) model.config.challenge secsLeft ( w / 2, h / 2 ) ]
-                else
-                    []
+            ++ (case model.mode of
+                    GameOver _ ->
+                        [ viewResetButton ( w / 2, h / 2 ) model ]
+
+                    _ ->
+                        if model.player /= None then
+                            [ viewButton model
+                            , viewResetButton ( w / 12, h / 2 ) model
+                            ]
+                        else
+                            []
                )
         )
 
@@ -66,9 +69,24 @@ viewChallenge mbChallenge =
 -- half the screen
 
 
-viewTimer : ( Float, Float ) -> ( Float, Float ) -> Float -> Bool -> Timer -> Svg.Svg Msg
-viewTimer ( posX, posY ) ( w, h ) rot isActive timer =
-    g [ transform <| "translate(" ++ toString posX ++ "," ++ toString posY ++ ") rotate(" ++ toString rot ++ ")" ]
+viewTimer : Float -> ( Float, Float ) -> Model -> Timer -> Svg.Svg Msg
+viewTimer rot pos model timer =
+    let
+        isActive =
+            case model.mode of
+                GameOver _ ->
+                    False
+
+                _ ->
+                    timer.player == model.player || model.player == None
+    in
+    g
+        [ transform <|
+            translate pos
+                ++ " rotate("
+                ++ toString rot
+                ++ ")"
+        ]
         [ text_
             [ textAnchor "middle"
             , fontSize "120"
@@ -89,13 +107,43 @@ viewTimer ( posX, posY ) ( w, h ) rot isActive timer =
                     "grey"
                 )
             ]
-            [ text <| Time.format "%M:%S" timer.time ]
-        , tapRect isActive ( posX, posY ) ( w, h ) timer.player
+            [ text <| timeToString timer.time ]
+        , tapRect isActive
+            pos
+            model
+            timer.player
         ]
 
 
-tapRect : Bool -> ( Float, Float ) -> ( Float, Float ) -> Player -> Svg Msg
-tapRect isActive ( posX, posY ) ( w, h ) player =
+timeToString : Time -> String
+timeToString time =
+    let
+        s =
+            Time.format "%M:%S" (abs time)
+    in
+    if time < 0 then
+        "-" ++ s
+    else
+        s
+
+
+tapRect : Bool -> ( Float, Float ) -> Model -> Player -> Svg Msg
+tapRect isActive ( posX, posY ) model player =
+    let
+        ( w, h ) =
+            ( toFloat model.size.width, toFloat model.size.height / 2 )
+
+        backgroundColor =
+            case model.mode of
+                GameOver loser ->
+                    if loser == player then
+                        "red"
+                    else
+                        "green"
+
+                _ ->
+                    "transparent"
+    in
     rect
         ([ x <| toString (-w / 2)
          , y <| toString (-h / 2)
@@ -108,7 +156,8 @@ tapRect isActive ( posX, posY ) ( w, h ) player =
                 "none"
             )
          , strokeWidth "1"
-         , fill "transparent"
+         , fill backgroundColor
+         , opacity "0.1"
          ]
             ++ (if isActive then
                     [ Touch.onStart (\event -> Tapped player) ]
@@ -123,16 +172,39 @@ tapRect isActive ( posX, posY ) ( w, h ) player =
 -- pause button
 
 
-viewButton : Bool -> Float -> Float -> ( Float, Float ) -> Svg Msg
-viewButton stopped challengeSecs secsLeft ( posX, posY ) =
+viewResetButton : ( Float, Float ) -> Model -> Svg Msg
+viewResetButton pos model =
+    let
+        ( w, h ) =
+            ( 72, 72 )
+    in
+    g
+        [ transform <| translate pos
+        ]
+        [ Svg.image
+            [ x <| toString (-w / 2)
+            , y <| toString (-h / 2)
+            , width <| toString w
+            , height <| toString h
+            , xlinkHref "img/restart.svg"
+            , Touch.onStart (\event -> Reset)
+            ]
+            []
+        ]
+
+
+viewButton : Model -> Svg Msg
+viewButton model =
     let
         ( w, h ) =
             ( 66, 60 )
     in
     g
-        [ transform <| translate ( posX, posY )
+        [ transform <| translate ( toFloat model.size.width / 2, toFloat model.size.height / 2 )
         ]
-        [ pause stopped challengeSecs secsLeft
+        [ pause (model.mode == Stopped)
+            model.config.challenge
+            (Maybe.withDefault 0 <| model.challenge)
         , rect
             [ x <| toString (-w / 2)
             , y <| toString (-h / 2)

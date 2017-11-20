@@ -9521,6 +9521,7 @@ var _user$project$Ports$playAudio = _elm_lang$core$Native_Platform.outgoingPort(
 		return v;
 	});
 
+var _user$project$Types$overtimeConfig = {duration: 1 * _elm_lang$core$Time$second, overtime: 2 * _elm_lang$core$Time$second, challenge: 2 * _elm_lang$core$Time$second};
 var _user$project$Types$minutes = function (_p0) {
 	return A2(
 		F2(
@@ -9559,9 +9560,13 @@ var _user$project$Types$SizeChanged = function (a) {
 var _user$project$Types$TickSecond = function (a) {
 	return {ctor: 'TickSecond', _0: a};
 };
+var _user$project$Types$Reset = {ctor: 'Reset'};
 var _user$project$Types$Toggle = {ctor: 'Toggle'};
 var _user$project$Types$Tapped = function (a) {
 	return {ctor: 'Tapped', _0: a};
+};
+var _user$project$Types$GameOver = function (a) {
+	return {ctor: 'GameOver', _0: a};
 };
 var _user$project$Types$Tick = {ctor: 'Tick'};
 var _user$project$Types$Stopped = {ctor: 'Stopped'};
@@ -9900,71 +9905,142 @@ var _user$project$View$pause = F3(
 				}
 			});
 	});
-var _user$project$View$viewButton = F4(
-	function (stopped, challengeSecs, secsLeft, _p8) {
-		var _p9 = _p8;
-		var _p10 = {ctor: '_Tuple2', _0: 66, _1: 60};
-		var w = _p10._0;
-		var h = _p10._1;
+var _user$project$View$viewButton = function (model) {
+	var _p8 = {ctor: '_Tuple2', _0: 66, _1: 60};
+	var w = _p8._0;
+	var h = _p8._1;
+	return A2(
+		_elm_lang$svg$Svg$g,
+		{
+			ctor: '::',
+			_0: _elm_lang$svg$Svg_Attributes$transform(
+				_user$project$View$translate(
+					{
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Basics$toFloat(model.size.width) / 2,
+						_1: _elm_lang$core$Basics$toFloat(model.size.height) / 2
+					})),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A3(
+				_user$project$View$pause,
+				_elm_lang$core$Native_Utils.eq(model.mode, _user$project$Types$Stopped),
+				model.config.challenge,
+				A2(_elm_lang$core$Maybe$withDefault, 0, model.challenge)),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$svg$Svg$rect,
+					{
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$x(
+							_elm_lang$core$Basics$toString((0 - w) / 2)),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$y(
+								_elm_lang$core$Basics$toString((0 - h) / 2)),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$width(
+									_elm_lang$core$Basics$toString(w)),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$height(
+										_elm_lang$core$Basics$toString(h)),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$fill('transparent'),
+										_1: {
+											ctor: '::',
+											_0: _zwilias$elm_touch_events$Touch$onStart(
+												function (event) {
+													return _user$project$Types$Toggle;
+												}),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$View$viewResetButton = F2(
+	function (pos, model) {
+		var _p9 = {ctor: '_Tuple2', _0: 72, _1: 72};
+		var w = _p9._0;
+		var h = _p9._1;
 		return A2(
 			_elm_lang$svg$Svg$g,
 			{
 				ctor: '::',
 				_0: _elm_lang$svg$Svg_Attributes$transform(
-					_user$project$View$translate(
-						{ctor: '_Tuple2', _0: _p9._0, _1: _p9._1})),
+					_user$project$View$translate(pos)),
 				_1: {ctor: '[]'}
 			},
 			{
 				ctor: '::',
-				_0: A3(_user$project$View$pause, stopped, challengeSecs, secsLeft),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$svg$Svg$rect,
-						{
+				_0: A2(
+					_elm_lang$svg$Svg$image,
+					{
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$x(
+							_elm_lang$core$Basics$toString((0 - w) / 2)),
+						_1: {
 							ctor: '::',
-							_0: _elm_lang$svg$Svg_Attributes$x(
-								_elm_lang$core$Basics$toString((0 - w) / 2)),
+							_0: _elm_lang$svg$Svg_Attributes$y(
+								_elm_lang$core$Basics$toString((0 - h) / 2)),
 							_1: {
 								ctor: '::',
-								_0: _elm_lang$svg$Svg_Attributes$y(
-									_elm_lang$core$Basics$toString((0 - h) / 2)),
+								_0: _elm_lang$svg$Svg_Attributes$width(
+									_elm_lang$core$Basics$toString(w)),
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$svg$Svg_Attributes$width(
-										_elm_lang$core$Basics$toString(w)),
+									_0: _elm_lang$svg$Svg_Attributes$height(
+										_elm_lang$core$Basics$toString(h)),
 									_1: {
 										ctor: '::',
-										_0: _elm_lang$svg$Svg_Attributes$height(
-											_elm_lang$core$Basics$toString(h)),
+										_0: _elm_lang$svg$Svg_Attributes$xlinkHref('img/restart.svg'),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$fill('transparent'),
-											_1: {
-												ctor: '::',
-												_0: _zwilias$elm_touch_events$Touch$onStart(
-													function (event) {
-														return _user$project$Types$Toggle;
-													}),
-												_1: {ctor: '[]'}
-											}
+											_0: _zwilias$elm_touch_events$Touch$onStart(
+												function (event) {
+													return _user$project$Types$Reset;
+												}),
+											_1: {ctor: '[]'}
 										}
 									}
 								}
 							}
-						},
-						{ctor: '[]'}),
-					_1: {ctor: '[]'}
-				}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {ctor: '[]'}
 			});
 	});
 var _user$project$View$tapRect = F4(
-	function (isActive, _p12, _p11, player) {
-		var _p13 = _p12;
-		var _p14 = _p11;
-		var _p16 = _p14._0;
-		var _p15 = _p14._1;
+	function (isActive, _p10, model, player) {
+		var _p11 = _p10;
+		var backgroundColor = function () {
+			var _p12 = model.mode;
+			if (_p12.ctor === 'GameOver') {
+				return _elm_lang$core$Native_Utils.eq(_p12._0, player) ? 'red' : 'green';
+			} else {
+				return 'transparent';
+			}
+		}();
+		var _p13 = {
+			ctor: '_Tuple2',
+			_0: _elm_lang$core$Basics$toFloat(model.size.width),
+			_1: _elm_lang$core$Basics$toFloat(model.size.height) / 2
+		};
+		var w = _p13._0;
+		var h = _p13._1;
 		return A2(
 			_elm_lang$svg$Svg$rect,
 			A2(
@@ -9972,19 +10048,19 @@ var _user$project$View$tapRect = F4(
 				{
 					ctor: '::',
 					_0: _elm_lang$svg$Svg_Attributes$x(
-						_elm_lang$core$Basics$toString((0 - _p16) / 2)),
+						_elm_lang$core$Basics$toString((0 - w) / 2)),
 					_1: {
 						ctor: '::',
 						_0: _elm_lang$svg$Svg_Attributes$y(
-							_elm_lang$core$Basics$toString((0 - _p15) / 2)),
+							_elm_lang$core$Basics$toString((0 - h) / 2)),
 						_1: {
 							ctor: '::',
 							_0: _elm_lang$svg$Svg_Attributes$width(
-								_elm_lang$core$Basics$toString(_p16)),
+								_elm_lang$core$Basics$toString(w)),
 							_1: {
 								ctor: '::',
 								_0: _elm_lang$svg$Svg_Attributes$height(
-									_elm_lang$core$Basics$toString(_p15)),
+									_elm_lang$core$Basics$toString(h)),
 								_1: {
 									ctor: '::',
 									_0: _elm_lang$svg$Svg_Attributes$stroke(
@@ -9994,8 +10070,12 @@ var _user$project$View$tapRect = F4(
 										_0: _elm_lang$svg$Svg_Attributes$strokeWidth('1'),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$fill('transparent'),
-											_1: {ctor: '[]'}
+											_0: _elm_lang$svg$Svg_Attributes$fill(backgroundColor),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$svg$Svg_Attributes$opacity('0.1'),
+												_1: {ctor: '[]'}
+											}
 										}
 									}
 								}
@@ -10013,12 +10093,23 @@ var _user$project$View$tapRect = F4(
 				} : {ctor: '[]'}),
 			{ctor: '[]'});
 	});
-var _user$project$View$viewTimer = F5(
-	function (_p18, _p17, rot, isActive, timer) {
-		var _p19 = _p18;
-		var _p22 = _p19._1;
-		var _p21 = _p19._0;
-		var _p20 = _p17;
+var _user$project$View$timeToString = function (time) {
+	var s = A2(
+		_mgold$elm_date_format$Time_Format$format,
+		'%M:%S',
+		_elm_lang$core$Basics$abs(time));
+	return (_elm_lang$core$Native_Utils.cmp(time, 0) < 0) ? A2(_elm_lang$core$Basics_ops['++'], '-', s) : s;
+};
+var _user$project$View$viewTimer = F4(
+	function (rot, pos, model, timer) {
+		var isActive = function () {
+			var _p14 = model.mode;
+			if (_p14.ctor === 'GameOver') {
+				return false;
+			} else {
+				return _elm_lang$core$Native_Utils.eq(timer.player, model.player) || _elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None);
+			}
+		}();
 		return A2(
 			_elm_lang$svg$Svg$g,
 			{
@@ -10026,23 +10117,14 @@ var _user$project$View$viewTimer = F5(
 				_0: _elm_lang$svg$Svg_Attributes$transform(
 					A2(
 						_elm_lang$core$Basics_ops['++'],
-						'translate(',
+						_user$project$View$translate(pos),
 						A2(
 							_elm_lang$core$Basics_ops['++'],
-							_elm_lang$core$Basics$toString(_p21),
+							' rotate(',
 							A2(
 								_elm_lang$core$Basics_ops['++'],
-								',',
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									_elm_lang$core$Basics$toString(_p22),
-									A2(
-										_elm_lang$core$Basics_ops['++'],
-										') rotate(',
-										A2(
-											_elm_lang$core$Basics_ops['++'],
-											_elm_lang$core$Basics$toString(rot),
-											')'))))))),
+								_elm_lang$core$Basics$toString(rot),
+								')')))),
 				_1: {ctor: '[]'}
 			},
 			{
@@ -10087,24 +10169,19 @@ var _user$project$View$viewTimer = F5(
 					{
 						ctor: '::',
 						_0: _elm_lang$svg$Svg$text(
-							A2(_mgold$elm_date_format$Time_Format$format, '%M:%S', timer.time)),
+							_user$project$View$timeToString(timer.time)),
 						_1: {ctor: '[]'}
 					}),
 				_1: {
 					ctor: '::',
-					_0: A4(
-						_user$project$View$tapRect,
-						isActive,
-						{ctor: '_Tuple2', _0: _p21, _1: _p22},
-						{ctor: '_Tuple2', _0: _p20._0, _1: _p20._1},
-						timer.player),
+					_0: A4(_user$project$View$tapRect, isActive, pos, model, timer.player),
 					_1: {ctor: '[]'}
 				}
 			});
 	});
 var _user$project$View$viewChallenge = function (mbChallenge) {
-	var _p23 = mbChallenge;
-	if (_p23.ctor === 'Nothing') {
+	var _p15 = mbChallenge;
+	if (_p15.ctor === 'Nothing') {
 		return A2(
 			_elm_lang$svg$Svg$g,
 			{ctor: '[]'},
@@ -10150,22 +10227,19 @@ var _user$project$View$viewChallenge = function (mbChallenge) {
 			{
 				ctor: '::',
 				_0: _elm_lang$svg$Svg$text(
-					_elm_lang$core$Basics$toString(_p23._0)),
+					_elm_lang$core$Basics$toString(_p15._0)),
 				_1: {ctor: '[]'}
 			});
 	}
 };
 var _user$project$View$view = function (model) {
-	var _p24 = model.size;
-	var width = _p24.width;
-	var height = _p24.height;
-	var _p25 = {
+	var _p16 = {
 		ctor: '_Tuple2',
-		_0: _elm_lang$core$Basics$toFloat(width),
-		_1: _elm_lang$core$Basics$toFloat(height)
+		_0: _elm_lang$core$Basics$toFloat(model.size.width),
+		_1: _elm_lang$core$Basics$toFloat(model.size.height)
 	};
-	var w = _p25._0;
-	var h = _p25._1;
+	var w = _p16._0;
+	var h = _p16._1;
 	var posOne = {ctor: '_Tuple2', _0: w / 2, _1: h / 4};
 	var posTwo = {ctor: '_Tuple2', _0: w / 2, _1: (3 * h) / 4};
 	return A2(
@@ -10178,58 +10252,52 @@ var _user$project$View$view = function (model) {
 					'0 0 ',
 					A2(
 						_elm_lang$core$Basics_ops['++'],
-						_elm_lang$core$Basics$toString(width),
+						_elm_lang$core$Basics$toString(w),
 						A2(
 							_elm_lang$core$Basics_ops['++'],
 							' ',
-							_elm_lang$core$Basics$toString(height))))),
+							_elm_lang$core$Basics$toString(h))))),
 			_1: {ctor: '[]'}
 		},
 		A2(
 			_elm_lang$core$Basics_ops['++'],
 			{
 				ctor: '::',
-				_0: A5(
-					_user$project$View$viewTimer,
-					posOne,
-					{ctor: '_Tuple2', _0: w, _1: h / 2},
-					180,
-					_elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None) || _elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$PlayerOne),
-					model.playerOne),
+				_0: A4(_user$project$View$viewTimer, 180, posOne, model, model.playerOne),
 				_1: {
 					ctor: '::',
-					_0: A5(
-						_user$project$View$viewTimer,
-						posTwo,
-						{ctor: '_Tuple2', _0: w, _1: h / 2},
-						0,
-						_elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None) || _elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$PlayerTwo),
-						model.playerTwo),
+					_0: A4(_user$project$View$viewTimer, 0, posTwo, model, model.playerTwo),
 					_1: {ctor: '[]'}
 				}
 			},
 			function () {
-				if (!_elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None)) {
-					var secsLeft = A2(_elm_lang$core$Maybe$withDefault, 0, model.challenge);
+				var _p17 = model.mode;
+				if (_p17.ctor === 'GameOver') {
 					return {
 						ctor: '::',
-						_0: A4(
-							_user$project$View$viewButton,
-							_elm_lang$core$Native_Utils.eq(model.mode, _user$project$Types$Stopped),
-							model.config.challenge,
-							secsLeft,
-							{ctor: '_Tuple2', _0: w / 2, _1: h / 2}),
+						_0: A2(
+							_user$project$View$viewResetButton,
+							{ctor: '_Tuple2', _0: w / 2, _1: h / 2},
+							model),
 						_1: {ctor: '[]'}
 					};
 				} else {
-					return {ctor: '[]'};
+					return (!_elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None)) ? {
+						ctor: '::',
+						_0: _user$project$View$viewButton(model),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_user$project$View$viewResetButton,
+								{ctor: '_Tuple2', _0: w / 12, _1: h / 2},
+								model),
+							_1: {ctor: '[]'}
+						}
+					} : {ctor: '[]'};
 				}
 			}()));
 };
 
-var _user$project$Main$subscriptions = function (model) {
-	return (!_elm_lang$core$Native_Utils.eq(model.mode, _user$project$Types$Stopped)) ? A2(_elm_lang$core$Time$every, _elm_lang$core$Time$second, _user$project$Types$TickSecond) : _elm_lang$core$Platform_Sub$none;
-};
 var _user$project$Main$checkChallenge = function (t) {
 	return (_elm_lang$core$Native_Utils.cmp(t, 0) < 1) ? _elm_lang$core$Maybe$Nothing : _elm_lang$core$Maybe$Just(t);
 };
@@ -10243,9 +10311,32 @@ var _user$project$Main$decrement = function (timer) {
 			time: _user$project$Main$decTime(timer.time)
 		});
 };
+var _user$project$Main$subscriptions = function (model) {
+	return _elm_lang$core$Native_Utils.eq(model.mode, _user$project$Types$Tick) ? A2(_elm_lang$core$Time$every, _elm_lang$core$Time$second, _user$project$Types$TickSecond) : _elm_lang$core$Platform_Sub$none;
+};
+var _user$project$Main$initPlayer = F2(
+	function (config, player) {
+		return {player: player, time: config.duration};
+	});
+var _user$project$Main$init = function (config) {
+	return {
+		ctor: '_Tuple2',
+		_0: {
+			playerOne: A2(_user$project$Main$initPlayer, config, _user$project$Types$PlayerOne),
+			playerTwo: A2(_user$project$Main$initPlayer, config, _user$project$Types$PlayerTwo),
+			player: _user$project$Types$None,
+			mode: _user$project$Types$Stopped,
+			config: config,
+			size: {width: 0, height: 0},
+			challenge: _elm_lang$core$Maybe$Nothing
+		},
+		_1: A2(_elm_lang$core$Task$perform, _user$project$Types$SizeChanged, _elm_lang$window$Window$size)
+	};
+};
+var _user$project$Main$reset = _user$project$Main$init(_user$project$Types$defaultConfig);
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p0 = msg;
+		var _p0 = A2(_elm_lang$core$Debug$log, 'msg', msg);
 		switch (_p0.ctor) {
 			case 'SizeChanged':
 				return {
@@ -10260,33 +10351,47 @@ var _user$project$Main$update = F2(
 					_elm_lang$core$Maybe$andThen,
 					_user$project$Main$checkChallenge,
 					A2(_elm_lang$core$Maybe$map, _user$project$Main$decTime, model.challenge));
-				var _p1 = model.player;
-				switch (_p1.ctor) {
-					case 'None':
-						return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-					case 'PlayerOne':
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
+				var nextModel = function () {
+					var _p1 = model.player;
+					switch (_p1.ctor) {
+						case 'None':
+							return model;
+						case 'PlayerOne':
+							return _elm_lang$core$Native_Utils.update(
 								model,
 								{
 									playerOne: _user$project$Main$decrement(model.playerOne),
 									challenge: nextChallenge
-								}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-					default:
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
+								});
+						default:
+							return _elm_lang$core$Native_Utils.update(
 								model,
 								{
 									playerTwo: _user$project$Main$decrement(model.playerTwo),
 									challenge: nextChallenge
-								}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-				}
+								});
+					}
+				}();
+				return (_elm_lang$core$Native_Utils.cmp(nextModel.playerOne.time, 0 - nextModel.config.overtime) < 1) ? A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						nextModel,
+						{
+							mode: _user$project$Types$GameOver(_user$project$Types$PlayerOne)
+						}),
+					{ctor: '[]'}) : ((_elm_lang$core$Native_Utils.cmp(nextModel.playerTwo.time, 0 - nextModel.config.overtime) < 1) ? A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						nextModel,
+						{
+							mode: _user$project$Types$GameOver(_user$project$Types$PlayerTwo)
+						}),
+					{ctor: '[]'}) : A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					nextModel,
+					{ctor: '[]'}));
+			case 'Reset':
+				return _user$project$Main$reset;
 			case 'Toggle':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
@@ -10295,25 +10400,31 @@ var _user$project$Main$update = F2(
 						{
 							mode: function () {
 								var _p2 = model.mode;
-								if (_p2.ctor === 'Stopped') {
-									return _user$project$Types$Tick;
-								} else {
-									return _user$project$Types$Stopped;
+								switch (_p2.ctor) {
+									case 'Stopped':
+										return _user$project$Types$Tick;
+									case 'Tick':
+										return _user$project$Types$Stopped;
+									default:
+										return _user$project$Types$Stopped;
 								}
 							}(),
-							challenge: _elm_lang$core$Maybe$Nothing
+							challenge: _elm_lang$core$Maybe$Nothing,
+							player: _user$project$Types$None
 						}),
 					{
 						ctor: '::',
-						_0: _user$project$Ports$playAudio(
-							function () {
-								var _p3 = model.mode;
-								if (_p3.ctor === 'Stopped') {
-									return 'snd/resume.mp3';
-								} else {
-									return 'snd/pause.mp3';
-								}
-							}()),
+						_0: function () {
+							var _p3 = model.mode;
+							switch (_p3.ctor) {
+								case 'Stopped':
+									return _user$project$Ports$playAudio('snd/resume.mp3');
+								case 'Tick':
+									return _user$project$Ports$playAudio('snd/pause.mp3');
+								default:
+									return _elm_lang$core$Platform_Cmd$none;
+							}
+						}(),
 						_1: {ctor: '[]'}
 					});
 			default:
@@ -10347,21 +10458,8 @@ var _user$project$Main$update = F2(
 				};
 		}
 	});
-var _user$project$Main$init = {
-	ctor: '_Tuple2',
-	_0: {
-		playerOne: {player: _user$project$Types$PlayerOne, time: _user$project$Types$defaultConfig.duration},
-		playerTwo: {player: _user$project$Types$PlayerTwo, time: _user$project$Types$defaultConfig.duration},
-		player: _user$project$Types$None,
-		mode: _user$project$Types$Stopped,
-		config: _user$project$Types$defaultConfig,
-		size: {width: 0, height: 0},
-		challenge: _elm_lang$core$Maybe$Nothing
-	},
-	_1: A2(_elm_lang$core$Task$perform, _user$project$Types$SizeChanged, _elm_lang$window$Window$size)
-};
 var _user$project$Main$main = _elm_lang$html$Html$program(
-	{init: _user$project$Main$init, update: _user$project$Main$update, view: _user$project$View$view, subscriptions: _user$project$Main$subscriptions})();
+	{init: _user$project$Main$reset, update: _user$project$Main$update, view: _user$project$View$view, subscriptions: _user$project$Main$subscriptions})();
 
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};
