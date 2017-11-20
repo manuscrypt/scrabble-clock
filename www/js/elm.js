@@ -10289,7 +10289,7 @@ var _user$project$View$view = function (model) {
 							ctor: '::',
 							_0: A2(
 								_user$project$View$viewResetButton,
-								{ctor: '_Tuple2', _0: w / 12, _1: h / 2},
+								{ctor: '_Tuple2', _0: w / 10, _1: h / 2},
 								model),
 							_1: {ctor: '[]'}
 						}

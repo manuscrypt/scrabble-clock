@@ -1,0 +1,5 @@
+#TODO
+
+- Swipe to reset
+- Settings (duration, maxovertime, challengetime)
+- Set Time individually

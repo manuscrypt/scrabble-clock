@@ -37,7 +37,7 @@ view model =
                     _ ->
                         if model.player /= None then
                             [ viewButton model
-                            , viewResetButton ( w / 12, h / 2 ) model
+                            , viewResetButton ( w / 10, h / 2 ) model
                             ]
                         else
                             []
@@ -187,7 +187,7 @@ viewResetButton pos model =
             , width <| toString w
             , height <| toString h
             , xlinkHref "img/restart.svg"
-            , Touch.onStart (\event -> Reset)
+            , Touch.onEnd (\event -> Reset)
             ]
             []
         ]
