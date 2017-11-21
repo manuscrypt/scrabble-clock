@@ -212,7 +212,9 @@ viewResetButton pos model =
             , width <| toString w
             , height <| toString h
             , xlinkHref "img/restart.svg"
-            , Touch.onEnd (\event -> Reset)
+            , Touch.onStart ResetSwipe
+            , Touch.onMove ResetSwipe
+            , Touch.onEnd ResetSwipeEnd
             ]
             []
         ]

@@ -9247,6 +9247,11 @@ var _mgold$elm_date_format$Date_Format$padWith = function (padding) {
 					_elm_lang$core$String$padLeft,
 					2,
 					_elm_lang$core$Native_Utils.chr('0'));
+			case 'ZeroThreeDigits':
+				return A2(
+					_elm_lang$core$String$padLeft,
+					3,
+					_elm_lang$core$Native_Utils.chr('0'));
 			default:
 				return A2(
 					_elm_lang$core$String$padLeft,
@@ -9344,7 +9349,8 @@ var _mgold$elm_date_format$Date_Format$monthToInt = function (m) {
 			return 12;
 	}
 };
-var _mgold$elm_date_format$Date_Format$re = _elm_lang$core$Regex$regex('%(_|-|0)?(%|Y|y|m|B|b|d|e|a|A|H|k|I|l|p|P|M|S)');
+var _mgold$elm_date_format$Date_Format$re = _elm_lang$core$Regex$regex('%(_|-|0)?(%|Y|y|m|B|b|d|e|a|A|H|k|I|l|L|p|P|M|S)');
+var _mgold$elm_date_format$Date_Format$ZeroThreeDigits = {ctor: 'ZeroThreeDigits'};
 var _mgold$elm_date_format$Date_Format$Zero = {ctor: 'Zero'};
 var _mgold$elm_date_format$Date_Format$Space = {ctor: 'Space'};
 var _mgold$elm_date_format$Date_Format$NoPadding = {ctor: 'NoPadding'};
@@ -9488,6 +9494,11 @@ var _mgold$elm_date_format$Date_Format$formatToken = F3(
 					_mgold$elm_date_format$Date_Format$padWith,
 					A2(_elm_lang$core$Maybe$withDefault, _mgold$elm_date_format$Date_Format$Zero, padding),
 					_elm_lang$core$Date$second(d));
+			case 'L':
+				return A2(
+					_mgold$elm_date_format$Date_Format$padWith,
+					A2(_elm_lang$core$Maybe$withDefault, _mgold$elm_date_format$Date_Format$ZeroThreeDigits, padding),
+					_elm_lang$core$Date$millisecond(d));
 			default:
 				return '';
 		}
@@ -9520,59 +9531,6 @@ var _user$project$Ports$playAudio = _elm_lang$core$Native_Platform.outgoingPort(
 	function (v) {
 		return v;
 	});
-
-var _user$project$Types$overtimeConfig = {duration: 1 * _elm_lang$core$Time$second, overtime: 2 * _elm_lang$core$Time$second, challenge: 2 * _elm_lang$core$Time$second};
-var _user$project$Types$minutes = function (_p0) {
-	return A2(
-		F2(
-			function (x, y) {
-				return x * y;
-			}),
-		60,
-		A2(
-			F2(
-				function (x, y) {
-					return x * y;
-				}),
-			_elm_lang$core$Time$second,
-			_p0));
-};
-var _user$project$Types$defaultConfig = {
-	duration: _user$project$Types$minutes(25),
-	overtime: _user$project$Types$minutes(10),
-	challenge: 20 * _elm_lang$core$Time$second
-};
-var _user$project$Types$Model = F7(
-	function (a, b, c, d, e, f, g) {
-		return {playerOne: a, playerTwo: b, player: c, mode: d, config: e, size: f, challenge: g};
-	});
-var _user$project$Types$TimerConfig = F3(
-	function (a, b, c) {
-		return {duration: a, overtime: b, challenge: c};
-	});
-var _user$project$Types$Timer = F2(
-	function (a, b) {
-		return {player: a, time: b};
-	});
-var _user$project$Types$SizeChanged = function (a) {
-	return {ctor: 'SizeChanged', _0: a};
-};
-var _user$project$Types$TickSecond = function (a) {
-	return {ctor: 'TickSecond', _0: a};
-};
-var _user$project$Types$Reset = {ctor: 'Reset'};
-var _user$project$Types$Toggle = {ctor: 'Toggle'};
-var _user$project$Types$Tapped = function (a) {
-	return {ctor: 'Tapped', _0: a};
-};
-var _user$project$Types$GameOver = function (a) {
-	return {ctor: 'GameOver', _0: a};
-};
-var _user$project$Types$Tick = {ctor: 'Tick'};
-var _user$project$Types$Stopped = {ctor: 'Stopped'};
-var _user$project$Types$PlayerTwo = {ctor: 'PlayerTwo'};
-var _user$project$Types$PlayerOne = {ctor: 'PlayerOne'};
-var _user$project$Types$None = {ctor: 'None'};
 
 var _zwilias$elm_touch_events$Touch$addToTrail = F2(
 	function (coordinate, _p0) {
@@ -9771,6 +9729,64 @@ var _zwilias$elm_touch_events$Touch$onStart = function (tagger) {
 					A2(_zwilias$elm_touch_events$Touch$Touch, _zwilias$elm_touch_events$Touch$Start, _p12));
 			}));
 };
+
+var _user$project$Types$overtimeConfig = {duration: 1 * _elm_lang$core$Time$second, overtime: 2 * _elm_lang$core$Time$second, challenge: 2 * _elm_lang$core$Time$second};
+var _user$project$Types$minutes = function (_p0) {
+	return A2(
+		F2(
+			function (x, y) {
+				return x * y;
+			}),
+		60,
+		A2(
+			F2(
+				function (x, y) {
+					return x * y;
+				}),
+			_elm_lang$core$Time$second,
+			_p0));
+};
+var _user$project$Types$defaultConfig = {
+	duration: _user$project$Types$minutes(25),
+	overtime: _user$project$Types$minutes(10),
+	challenge: 20 * _elm_lang$core$Time$second
+};
+var _user$project$Types$Model = F8(
+	function (a, b, c, d, e, f, g, h) {
+		return {playerOne: a, playerTwo: b, player: c, mode: d, config: e, size: f, challenge: g, resetGesture: h};
+	});
+var _user$project$Types$TimerConfig = F3(
+	function (a, b, c) {
+		return {duration: a, overtime: b, challenge: c};
+	});
+var _user$project$Types$Timer = F2(
+	function (a, b) {
+		return {player: a, time: b};
+	});
+var _user$project$Types$SizeChanged = function (a) {
+	return {ctor: 'SizeChanged', _0: a};
+};
+var _user$project$Types$TickSecond = function (a) {
+	return {ctor: 'TickSecond', _0: a};
+};
+var _user$project$Types$ResetSwipeEnd = function (a) {
+	return {ctor: 'ResetSwipeEnd', _0: a};
+};
+var _user$project$Types$ResetSwipe = function (a) {
+	return {ctor: 'ResetSwipe', _0: a};
+};
+var _user$project$Types$Toggle = {ctor: 'Toggle'};
+var _user$project$Types$Tapped = function (a) {
+	return {ctor: 'Tapped', _0: a};
+};
+var _user$project$Types$GameOver = function (a) {
+	return {ctor: 'GameOver', _0: a};
+};
+var _user$project$Types$Tick = {ctor: 'Tick'};
+var _user$project$Types$Stopped = {ctor: 'Stopped'};
+var _user$project$Types$PlayerTwo = {ctor: 'PlayerTwo'};
+var _user$project$Types$PlayerOne = {ctor: 'PlayerOne'};
+var _user$project$Types$None = {ctor: 'None'};
 
 var _user$project$View$translate = function (_p0) {
 	var _p1 = _p0;
@@ -10008,11 +10024,16 @@ var _user$project$View$viewResetButton = F2(
 										_0: _elm_lang$svg$Svg_Attributes$xlinkHref('img/restart.svg'),
 										_1: {
 											ctor: '::',
-											_0: _zwilias$elm_touch_events$Touch$onEnd(
-												function (event) {
-													return _user$project$Types$Reset;
-												}),
-											_1: {ctor: '[]'}
+											_0: _zwilias$elm_touch_events$Touch$onStart(_user$project$Types$ResetSwipe),
+											_1: {
+												ctor: '::',
+												_0: _zwilias$elm_touch_events$Touch$onMove(_user$project$Types$ResetSwipe),
+												_1: {
+													ctor: '::',
+													_0: _zwilias$elm_touch_events$Touch$onEnd(_user$project$Types$ResetSwipeEnd),
+													_1: {ctor: '[]'}
+												}
+											}
 										}
 									}
 								}
@@ -10342,7 +10363,8 @@ var _user$project$Main$init = function (config) {
 			mode: _user$project$Types$Stopped,
 			config: config,
 			size: {width: 0, height: 0},
-			challenge: _elm_lang$core$Maybe$Nothing
+			challenge: _elm_lang$core$Maybe$Nothing,
+			resetGesture: _zwilias$elm_touch_events$Touch$blanco
 		},
 		_1: A2(_elm_lang$core$Task$perform, _user$project$Types$SizeChanged, _elm_lang$window$Window$size)
 	};
@@ -10404,8 +10426,27 @@ var _user$project$Main$update = F2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					nextModel,
 					{ctor: '[]'}));
-			case 'Reset':
-				return _user$project$Main$reset;
+			case 'ResetSwipe':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							resetGesture: A2(_zwilias$elm_touch_events$Touch$record, _p0._0, model.resetGesture)
+						}),
+					{ctor: '[]'});
+			case 'ResetSwipeEnd':
+				var gesture = A2(
+					_elm_lang$core$Debug$log,
+					'g',
+					A2(_zwilias$elm_touch_events$Touch$record, _p0._0, model.resetGesture));
+				var complete = A2(_zwilias$elm_touch_events$Touch$isRightSwipe, 5, gesture);
+				return (!complete) ? A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{resetGesture: _zwilias$elm_touch_events$Touch$blanco}),
+					{ctor: '[]'}) : _user$project$Main$reset;
 			case 'Toggle':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],

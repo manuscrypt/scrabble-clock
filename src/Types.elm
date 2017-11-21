@@ -2,7 +2,7 @@ module Types exposing (..)
 
 import Time exposing (Time)
 import Window exposing (Size)
-
+import Touch
 
 type alias Model =
     { playerOne : Timer
@@ -12,13 +12,15 @@ type alias Model =
     , config : TimerConfig
     , size : Size
     , challenge : Maybe Time
+    , resetGesture : Touch.Gesture
     }
 
 
 type Msg
     = Tapped Player
     | Toggle
-    | Reset
+    | ResetSwipe Touch.Event
+    | ResetSwipeEnd Touch.Event
     | TickSecond Time
     | SizeChanged Size
 

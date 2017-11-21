@@ -7,7 +7,7 @@ import Time exposing (Time)
 import Types exposing (..)
 import View exposing (view)
 import Window exposing (Size)
-
+import Touch
 
 main : Program Never Model Msg
 main =
@@ -38,6 +38,7 @@ init config =
       , config = config
       , size = { width = 0, height = 0 }
       , challenge = Nothing
+      , resetGesture = Touch.blanco
       }
     , Task.perform SizeChanged Window.size
     )
@@ -109,8 +110,20 @@ update msg model =
             else
                 nextModel ! []
 
-        Reset ->
-            reset
+        ResetSwipe ev ->
+            { model | resetGesture = Touch.record ev model.resetGesture }! []
+
+        ResetSwipeEnd ev ->
+            let
+                gesture = Debug.log "g" <| 
+                        Touch.record ev model.resetGesture
+                complete = Touch.isRightSwipe 5 gesture
+
+                    -- use inspection functions like `isTap` and `isLeftSwipe`
+            in if not(complete) then
+                { model | resetGesture = Touch.blanco } ! []
+            else 
+                reset
 
         Toggle ->
             { model
