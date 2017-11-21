@@ -9541,22 +9541,26 @@ var _zwilias$elm_touch_events$Touch$addToTrail = F2(
 			to: coordinate
 		};
 	});
+var _zwilias$elm_touch_events$Touch$locate = function (_p2) {
+	var _p3 = _p2;
+	return _p3._1;
+};
 var _zwilias$elm_touch_events$Touch$isSwipeType = F2(
 	function (delta, predicate) {
-		return function (_p2) {
+		return function (_p4) {
 			return A2(
 				_elm_lang$core$Maybe$withDefault,
 				false,
 				A2(
 					_elm_lang$core$Maybe$map,
 					predicate,
-					delta(_p2)));
+					delta(_p4)));
 		};
 	});
 var _zwilias$elm_touch_events$Touch$deltaY = function (gesture) {
-	var _p3 = gesture;
-	if (_p3.ctor === 'EndGesture') {
-		return _elm_lang$core$Maybe$Just(_p3._0.to.y - _p3._0.from.y);
+	var _p5 = gesture;
+	if (_p5.ctor === 'EndGesture') {
+		return _elm_lang$core$Maybe$Just(_p5._0.to.y - _p5._0.from.y);
 	} else {
 		return _elm_lang$core$Maybe$Nothing;
 	}
@@ -9578,9 +9582,9 @@ var _zwilias$elm_touch_events$Touch$isUpSwipe = function (sensitivity) {
 		});
 };
 var _zwilias$elm_touch_events$Touch$deltaX = function (gesture) {
-	var _p4 = gesture;
-	if (_p4.ctor === 'EndGesture') {
-		return _elm_lang$core$Maybe$Just(_p4._0.to.x - _p4._0.from.x);
+	var _p6 = gesture;
+	if (_p6.ctor === 'EndGesture') {
+		return _elm_lang$core$Maybe$Just(_p6._0.to.x - _p6._0.from.x);
 	} else {
 		return _elm_lang$core$Maybe$Nothing;
 	}
@@ -9602,14 +9606,14 @@ var _zwilias$elm_touch_events$Touch$isLeftSwipe = function (sensitivity) {
 		});
 };
 var _zwilias$elm_touch_events$Touch$isTap = function (gesture) {
-	var _p5 = gesture;
-	if (_p5.ctor === 'EndTap') {
+	var _p7 = gesture;
+	if (_p7.ctor === 'EndTap') {
 		return true;
 	} else {
 		return false;
 	}
 };
-var _zwilias$elm_touch_events$Touch$Coordinate = F2(
+var _zwilias$elm_touch_events$Touch$Position = F2(
 	function (a, b) {
 		return {x: a, y: b};
 	});
@@ -9631,7 +9635,7 @@ var _zwilias$elm_touch_events$Touch$decodeTouch = F2(
 				},
 				A3(
 					_elm_lang$core$Json_Decode$map2,
-					_zwilias$elm_touch_events$Touch$Coordinate,
+					_zwilias$elm_touch_events$Touch$Position,
 					A2(_elm_lang$core$Json_Decode$field, 'clientX', _elm_lang$core$Json_Decode$float),
 					A2(_elm_lang$core$Json_Decode$field, 'clientY', _elm_lang$core$Json_Decode$float))));
 	});
@@ -9652,34 +9656,34 @@ var _zwilias$elm_touch_events$Touch$Started = function (a) {
 	return {ctor: 'Started', _0: a};
 };
 var _zwilias$elm_touch_events$Touch$record = F2(
-	function (_p6, gesture) {
-		var _p7 = _p6;
-		var _p9 = _p7._1;
-		var _p8 = {ctor: '_Tuple2', _0: _p7._0, _1: gesture};
-		switch (_p8._0.ctor) {
+	function (_p8, gesture) {
+		var _p9 = _p8;
+		var _p11 = _p9._1;
+		var _p10 = {ctor: '_Tuple2', _0: _p9._0, _1: gesture};
+		switch (_p10._0.ctor) {
 			case 'Start':
-				return _zwilias$elm_touch_events$Touch$Started(_p9);
+				return _zwilias$elm_touch_events$Touch$Started(_p11);
 			case 'Move':
-				switch (_p8._1.ctor) {
+				switch (_p10._1.ctor) {
 					case 'Started':
 						return _zwilias$elm_touch_events$Touch$Moved(
 							{
-								from: _p8._1._0,
+								from: _p10._1._0,
 								through: {ctor: '[]'},
-								to: _p9
+								to: _p11
 							});
 					case 'Moved':
 						return _zwilias$elm_touch_events$Touch$Moved(
-							A2(_zwilias$elm_touch_events$Touch$addToTrail, _p9, _p8._1._0));
+							A2(_zwilias$elm_touch_events$Touch$addToTrail, _p11, _p10._1._0));
 					default:
-						return _zwilias$elm_touch_events$Touch$Started(_p9);
+						return _zwilias$elm_touch_events$Touch$Started(_p11);
 				}
 			default:
-				if (_p8._1.ctor === 'Moved') {
+				if (_p10._1.ctor === 'Moved') {
 					return _zwilias$elm_touch_events$Touch$EndGesture(
-						A2(_zwilias$elm_touch_events$Touch$addToTrail, _p9, _p8._1._0));
+						A2(_zwilias$elm_touch_events$Touch$addToTrail, _p11, _p10._1._0));
 				} else {
-					return _zwilias$elm_touch_events$Touch$EndTap(_p9);
+					return _zwilias$elm_touch_events$Touch$EndTap(_p11);
 				}
 		}
 	});
@@ -9698,9 +9702,9 @@ var _zwilias$elm_touch_events$Touch$onEnd = function (tagger) {
 		A2(
 			_zwilias$elm_touch_events$Touch$decodeTouch,
 			'changedTouches',
-			function (_p10) {
+			function (_p12) {
 				return tagger(
-					A2(_zwilias$elm_touch_events$Touch$Touch, _zwilias$elm_touch_events$Touch$End, _p10));
+					A2(_zwilias$elm_touch_events$Touch$Touch, _zwilias$elm_touch_events$Touch$End, _p12));
 			}));
 };
 var _zwilias$elm_touch_events$Touch$Move = {ctor: 'Move'};
@@ -9711,9 +9715,9 @@ var _zwilias$elm_touch_events$Touch$onMove = function (tagger) {
 		A2(
 			_zwilias$elm_touch_events$Touch$decodeTouch,
 			'changedTouches',
-			function (_p11) {
+			function (_p13) {
 				return tagger(
-					A2(_zwilias$elm_touch_events$Touch$Touch, _zwilias$elm_touch_events$Touch$Move, _p11));
+					A2(_zwilias$elm_touch_events$Touch$Touch, _zwilias$elm_touch_events$Touch$Move, _p13));
 			}));
 };
 var _zwilias$elm_touch_events$Touch$Start = {ctor: 'Start'};
@@ -9724,9 +9728,9 @@ var _zwilias$elm_touch_events$Touch$onStart = function (tagger) {
 		A2(
 			_zwilias$elm_touch_events$Touch$decodeTouch,
 			'touches',
-			function (_p12) {
+			function (_p14) {
 				return tagger(
-					A2(_zwilias$elm_touch_events$Touch$Touch, _zwilias$elm_touch_events$Touch$Start, _p12));
+					A2(_zwilias$elm_touch_events$Touch$Touch, _zwilias$elm_touch_events$Touch$Start, _p14));
 			}));
 };
 
@@ -10268,29 +10272,20 @@ var _user$project$View$resetButtonPos = function (model) {
 		if (!_elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None)) {
 			return {ctor: '_Tuple2', _0: w / 10, _1: h / 2};
 		} else {
-			var _p18 = model.mode;
+			var _p18 = A2(_elm_lang$core$Debug$log, 'rbpos', model.mode);
 			switch (_p18.ctor) {
 				case 'GameOver':
 					return {ctor: '_Tuple2', _0: w / 2, _1: h / 2};
 				case 'Stopped':
 					return {ctor: '_Tuple2', _0: w / 10, _1: h / 2};
 				default:
-					return {ctor: '_Tuple2', _0: -1000, _1: 0};
+					return {ctor: '_Tuple2', _0: -1000, _1: -1000};
 			}
 		}
 	}();
 	var dpX = _p17._0;
 	var dpY = _p17._1;
-	if (_elm_lang$core$Native_Utils.eq(model.resetGesture, _zwilias$elm_touch_events$Touch$blanco)) {
-		return {ctor: '_Tuple2', _0: dpX, _1: dpY};
-	} else {
-		var dx = _zwilias$elm_touch_events$Touch$deltaX(model.resetGesture);
-		return {
-			ctor: '_Tuple2',
-			_0: dpX + A2(_elm_lang$core$Maybe$withDefault, 0, dx),
-			_1: dpY
-		};
-	}
+	return _elm_lang$core$Native_Utils.eq(model.resetGesture, _zwilias$elm_touch_events$Touch$blanco) ? {ctor: '_Tuple2', _0: dpX, _1: dpY} : model.resetButtonPos;
 };
 var _user$project$View$view = function (model) {
 	var _p19 = _user$project$View$wh(model);
@@ -10347,6 +10342,9 @@ var _user$project$View$view = function (model) {
 			}()));
 };
 
+var _user$project$Main$getCoord = function (ev) {
+	return _zwilias$elm_touch_events$Touch$locate(ev);
+};
 var _user$project$Main$checkChallenge = function (t) {
 	return (_elm_lang$core$Native_Utils.cmp(t, 0) < 1) ? _elm_lang$core$Maybe$Nothing : _elm_lang$core$Maybe$Just(t);
 };
@@ -10442,19 +10440,26 @@ var _user$project$Main$update = F2(
 					nextModel,
 					{ctor: '[]'}));
 			case 'ResetSwipe':
-				var _p2 = _p0._0;
-				var xx = A2(_elm_lang$core$Debug$log, 'ev', _p2);
+				var _p3 = _p0._0;
+				var _p2 = _user$project$Main$getCoord(_p3);
+				var x = _p2.x;
+				var y = _p2.y;
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
 						{
-							resetGesture: A2(_zwilias$elm_touch_events$Touch$record, _p2, model.resetGesture)
+							resetGesture: A2(_zwilias$elm_touch_events$Touch$record, _p3, model.resetGesture),
+							resetButtonPos: {
+								ctor: '_Tuple2',
+								_0: x,
+								_1: _elm_lang$core$Basics$toFloat(model.size.height) / 2
+							}
 						}),
 					{ctor: '[]'});
 			case 'ResetSwipeEnd':
 				var gesture = A2(_zwilias$elm_touch_events$Touch$record, _p0._0, model.resetGesture);
-				var complete = A2(_zwilias$elm_touch_events$Touch$isRightSwipe, 5, gesture);
+				var complete = A2(_zwilias$elm_touch_events$Touch$isRightSwipe, 255, gesture);
 				return (!complete) ? A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
@@ -10468,8 +10473,8 @@ var _user$project$Main$update = F2(
 						model,
 						{
 							mode: function () {
-								var _p3 = model.mode;
-								switch (_p3.ctor) {
+								var _p4 = model.mode;
+								switch (_p4.ctor) {
 									case 'Stopped':
 										return _user$project$Types$Tick;
 									case 'Tick':
@@ -10484,8 +10489,8 @@ var _user$project$Main$update = F2(
 					{
 						ctor: '::',
 						_0: function () {
-							var _p4 = model.mode;
-							switch (_p4.ctor) {
+							var _p5 = model.mode;
+							switch (_p5.ctor) {
 								case 'Stopped':
 									return _user$project$Ports$playAudio('snd/resume.mp3');
 								case 'Tick':
@@ -10503,8 +10508,8 @@ var _user$project$Main$update = F2(
 						model,
 						{
 							player: function () {
-								var _p5 = model.player;
-								switch (_p5.ctor) {
+								var _p6 = model.player;
+								switch (_p6.ctor) {
 									case 'None':
 										return _elm_lang$core$Native_Utils.eq(_p0._0, _user$project$Types$PlayerOne) ? _user$project$Types$PlayerTwo : _user$project$Types$PlayerOne;
 									case 'PlayerOne':
@@ -10514,8 +10519,8 @@ var _user$project$Main$update = F2(
 								}
 							}(),
 							mode: function () {
-								var _p6 = model.mode;
-								if (_p6.ctor === 'Stopped') {
+								var _p7 = model.mode;
+								if (_p7.ctor === 'Stopped') {
 									return _user$project$Types$Tick;
 								} else {
 									return model.mode;

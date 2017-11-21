@@ -55,11 +55,12 @@ resetButtonPos model =
     let
         ( w, h ) =
             wh model
-        (dpX, dpY) = 
+
+        ( dpX, dpY ) =
             if model.player /= None then
                 ( w / 10, h / 2 )
             else
-                case model.mode of
+                case Debug.log "rbpos" model.mode of
                     GameOver _ ->
                         ( w / 2, h / 2 )
 
@@ -67,14 +68,20 @@ resetButtonPos model =
                         ( w / 10, h / 2 )
 
                     Tick ->
-                        ( -1000, 0 )
-
+                        ( -1000, -1000 )
     in
     if model.resetGesture == Touch.blanco then
-        (dpX, dpY)
-    else 
-        let dx = Touch.deltaX model.resetGesture 
-        in (dpX + Maybe.withDefault 0 dx, dpY)
+        ( dpX, dpY )
+    else
+        model.resetButtonPos
+
+
+
+-- let
+--     dx =
+--         Touch.deltaX model.resetGesture
+-- in
+-- ( dpX + Maybe.withDefault 0 dx, dpY )
 
 
 viewChallenge : Maybe a -> Svg msg

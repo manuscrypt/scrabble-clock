@@ -4,10 +4,11 @@ import Html exposing (Html, div, text)
 import Ports exposing (playAudio)
 import Task
 import Time exposing (Time)
-import Types exposing (..)
-import View exposing (view)
-import Window exposing (Size)
 import Touch
+import Types exposing (..)
+import View exposing (resetButtonPos, view)
+import Window exposing (Size)
+
 
 main : Program Never Model Msg
 main =
@@ -39,7 +40,7 @@ init config =
       , size = { width = 0, height = 0 }
       , challenge = Nothing
       , resetGesture = Touch.blanco
-      , resetButtonPos = (0,0)
+      , resetButtonPos = ( 0, 0 )
       }
     , Task.perform SizeChanged Window.size
     )
@@ -73,6 +74,11 @@ checkChallenge t =
         Nothing
     else
         Just t
+
+
+getCoord : Touch.Event -> { x : Float, y : Float }
+getCoord ev =
+    Touch.locate ev
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -112,19 +118,29 @@ update msg model =
                 nextModel ! []
 
         ResetSwipe ev ->
-            let xx = Debug.log "ev" ev 
-            in { model | resetGesture = Touch.record ev model.resetGesture }! []
+            let
+                { x, y } =
+                    getCoord ev
+            in
+            { model
+                | resetGesture = Touch.record ev model.resetGesture
+                , resetButtonPos = ( x, toFloat model.size.height / 2 )
+            }
+                ! []
 
         ResetSwipeEnd ev ->
             let
-                gesture = 
-                        Touch.record ev model.resetGesture
-                complete = Touch.isRightSwipe 5 gesture
+                gesture =
+                    Touch.record ev model.resetGesture
 
-                    -- use inspection functions like `isTap` and `isLeftSwipe`
-            in if not(complete) then
+                complete =
+                    Touch.isRightSwipe 255 gesture
+
+                -- use inspection functions like `isTap` and `isLeftSwipe`
+            in
+            if not complete then
                 { model | resetGesture = Touch.blanco } ! []
-            else 
+            else
                 reset
 
         Toggle ->
