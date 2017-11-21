@@ -9992,7 +9992,7 @@ var _user$project$View$viewButton = function (model) {
 };
 var _user$project$View$viewResetButton = F2(
 	function (pos, model) {
-		var _p9 = {ctor: '_Tuple2', _0: 72, _1: 72};
+		var _p9 = {ctor: '_Tuple2', _0: 36, _1: 36};
 		var w = _p9._0;
 		var h = _p9._1;
 		return A2(
@@ -10268,29 +10268,15 @@ var _user$project$View$resetButtonPos = function (model) {
 	var _p16 = _user$project$View$wh(model);
 	var w = _p16._0;
 	var h = _p16._1;
-	var _p17 = function () {
-		if (!_elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None)) {
-			return {ctor: '_Tuple2', _0: w / 10, _1: h / 2};
-		} else {
-			var _p18 = A2(_elm_lang$core$Debug$log, 'rbpos', model.mode);
-			switch (_p18.ctor) {
-				case 'GameOver':
-					return {ctor: '_Tuple2', _0: w / 2, _1: h / 2};
-				case 'Stopped':
-					return {ctor: '_Tuple2', _0: w / 10, _1: h / 2};
-				default:
-					return {ctor: '_Tuple2', _0: -1000, _1: -1000};
-			}
-		}
-	}();
+	var _p17 = {ctor: '_Tuple2', _0: w / 10, _1: h / 2};
 	var dpX = _p17._0;
 	var dpY = _p17._1;
 	return _elm_lang$core$Native_Utils.eq(model.resetGesture, _zwilias$elm_touch_events$Touch$blanco) ? {ctor: '_Tuple2', _0: dpX, _1: dpY} : model.resetButtonPos;
 };
 var _user$project$View$view = function (model) {
-	var _p19 = _user$project$View$wh(model);
-	var w = _p19._0;
-	var h = _p19._1;
+	var _p18 = _user$project$View$wh(model);
+	var w = _p18._0;
+	var h = _p18._1;
 	var posOne = {ctor: '_Tuple2', _0: w / 2, _1: h / 4};
 	var posTwo = {ctor: '_Tuple2', _0: w / 2, _1: (3 * h) / 4};
 	return A2(
@@ -10329,8 +10315,8 @@ var _user$project$View$view = function (model) {
 				}
 			},
 			function () {
-				var _p20 = model.mode;
-				if (_p20.ctor === 'GameOver') {
+				var _p19 = model.mode;
+				if (_p19.ctor === 'GameOver') {
 					return {ctor: '[]'};
 				} else {
 					return (!_elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None)) ? {
@@ -10459,7 +10445,10 @@ var _user$project$Main$update = F2(
 					{ctor: '[]'});
 			case 'ResetSwipeEnd':
 				var gesture = A2(_zwilias$elm_touch_events$Touch$record, _p0._0, model.resetGesture);
-				var complete = A2(_zwilias$elm_touch_events$Touch$isRightSwipe, 255, gesture);
+				var complete = A2(
+					_zwilias$elm_touch_events$Touch$isRightSwipe,
+					_elm_lang$core$Basics$toFloat(model.size.width) * 0.75,
+					gesture);
 				return (!complete) ? A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(

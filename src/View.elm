@@ -57,18 +57,7 @@ resetButtonPos model =
             wh model
 
         ( dpX, dpY ) =
-            if model.player /= None then
-                ( w / 10, h / 2 )
-            else
-                case Debug.log "rbpos" model.mode of
-                    GameOver _ ->
-                        ( w / 2, h / 2 )
-
-                    Stopped ->
-                        ( w / 10, h / 2 )
-
-                    Tick ->
-                        ( -1000, -1000 )
+            ( w / 10, h / 2 )
     in
     if model.resetGesture == Touch.blanco then
         ( dpX, dpY )
@@ -215,7 +204,7 @@ viewResetButton : ( Float, Float ) -> Model -> Svg Msg
 viewResetButton pos model =
     let
         ( w, h ) =
-            ( 72, 72 )
+            ( 36, 36 )
     in
     g
         [ transform <| translate pos

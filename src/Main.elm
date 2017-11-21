@@ -134,7 +134,7 @@ update msg model =
                     Touch.record ev model.resetGesture
 
                 complete =
-                    Touch.isRightSwipe 255 gesture
+                    Touch.isRightSwipe (toFloat model.size.width * 0.75) gesture
 
                 -- use inspection functions like `isTap` and `isLeftSwipe`
             in
