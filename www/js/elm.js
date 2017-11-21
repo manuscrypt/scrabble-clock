@@ -9751,9 +9751,9 @@ var _user$project$Types$defaultConfig = {
 	overtime: _user$project$Types$minutes(10),
 	challenge: 20 * _elm_lang$core$Time$second
 };
-var _user$project$Types$Model = F8(
-	function (a, b, c, d, e, f, g, h) {
-		return {playerOne: a, playerTwo: b, player: c, mode: d, config: e, size: f, challenge: g, resetGesture: h};
+var _user$project$Types$Model = F9(
+	function (a, b, c, d, e, f, g, h, i) {
+		return {playerOne: a, playerTwo: b, player: c, mode: d, config: e, size: f, challenge: g, resetGesture: h, resetButtonPos: i};
 	});
 var _user$project$Types$TimerConfig = F3(
 	function (a, b, c) {
@@ -10264,24 +10264,38 @@ var _user$project$View$resetButtonPos = function (model) {
 	var _p16 = _user$project$View$wh(model);
 	var w = _p16._0;
 	var h = _p16._1;
-	if (!_elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None)) {
-		return {ctor: '_Tuple2', _0: w / 10, _1: h / 2};
-	} else {
-		var _p17 = model.mode;
-		switch (_p17.ctor) {
-			case 'GameOver':
-				return {ctor: '_Tuple2', _0: w / 2, _1: h / 2};
-			case 'Stopped':
-				return {ctor: '_Tuple2', _0: w / 10, _1: h / 2};
-			default:
-				return {ctor: '_Tuple2', _0: -1000, _1: 0};
+	var _p17 = function () {
+		if (!_elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None)) {
+			return {ctor: '_Tuple2', _0: w / 10, _1: h / 2};
+		} else {
+			var _p18 = model.mode;
+			switch (_p18.ctor) {
+				case 'GameOver':
+					return {ctor: '_Tuple2', _0: w / 2, _1: h / 2};
+				case 'Stopped':
+					return {ctor: '_Tuple2', _0: w / 10, _1: h / 2};
+				default:
+					return {ctor: '_Tuple2', _0: -1000, _1: 0};
+			}
 		}
+	}();
+	var dpX = _p17._0;
+	var dpY = _p17._1;
+	if (_elm_lang$core$Native_Utils.eq(model.resetGesture, _zwilias$elm_touch_events$Touch$blanco)) {
+		return {ctor: '_Tuple2', _0: dpX, _1: dpY};
+	} else {
+		var dx = _zwilias$elm_touch_events$Touch$deltaX(model.resetGesture);
+		return {
+			ctor: '_Tuple2',
+			_0: dpX + A2(_elm_lang$core$Maybe$withDefault, 0, dx),
+			_1: dpY
+		};
 	}
 };
 var _user$project$View$view = function (model) {
-	var _p18 = _user$project$View$wh(model);
-	var w = _p18._0;
-	var h = _p18._1;
+	var _p19 = _user$project$View$wh(model);
+	var w = _p19._0;
+	var h = _p19._1;
 	var posOne = {ctor: '_Tuple2', _0: w / 2, _1: h / 4};
 	var posTwo = {ctor: '_Tuple2', _0: w / 2, _1: (3 * h) / 4};
 	return A2(
@@ -10320,8 +10334,8 @@ var _user$project$View$view = function (model) {
 				}
 			},
 			function () {
-				var _p19 = model.mode;
-				if (_p19.ctor === 'GameOver') {
+				var _p20 = model.mode;
+				if (_p20.ctor === 'GameOver') {
 					return {ctor: '[]'};
 				} else {
 					return (!_elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None)) ? {
@@ -10364,7 +10378,8 @@ var _user$project$Main$init = function (config) {
 			config: config,
 			size: {width: 0, height: 0},
 			challenge: _elm_lang$core$Maybe$Nothing,
-			resetGesture: _zwilias$elm_touch_events$Touch$blanco
+			resetGesture: _zwilias$elm_touch_events$Touch$blanco,
+			resetButtonPos: {ctor: '_Tuple2', _0: 0, _1: 0}
 		},
 		_1: A2(_elm_lang$core$Task$perform, _user$project$Types$SizeChanged, _elm_lang$window$Window$size)
 	};
@@ -10372,7 +10387,7 @@ var _user$project$Main$init = function (config) {
 var _user$project$Main$reset = _user$project$Main$init(_user$project$Types$defaultConfig);
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p0 = A2(_elm_lang$core$Debug$log, 'msg', msg);
+		var _p0 = msg;
 		switch (_p0.ctor) {
 			case 'SizeChanged':
 				return {
@@ -10427,19 +10442,18 @@ var _user$project$Main$update = F2(
 					nextModel,
 					{ctor: '[]'}));
 			case 'ResetSwipe':
+				var _p2 = _p0._0;
+				var xx = A2(_elm_lang$core$Debug$log, 'ev', _p2);
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
 						{
-							resetGesture: A2(_zwilias$elm_touch_events$Touch$record, _p0._0, model.resetGesture)
+							resetGesture: A2(_zwilias$elm_touch_events$Touch$record, _p2, model.resetGesture)
 						}),
 					{ctor: '[]'});
 			case 'ResetSwipeEnd':
-				var gesture = A2(
-					_elm_lang$core$Debug$log,
-					'g',
-					A2(_zwilias$elm_touch_events$Touch$record, _p0._0, model.resetGesture));
+				var gesture = A2(_zwilias$elm_touch_events$Touch$record, _p0._0, model.resetGesture);
 				var complete = A2(_zwilias$elm_touch_events$Touch$isRightSwipe, 5, gesture);
 				return (!complete) ? A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
@@ -10454,8 +10468,8 @@ var _user$project$Main$update = F2(
 						model,
 						{
 							mode: function () {
-								var _p2 = model.mode;
-								switch (_p2.ctor) {
+								var _p3 = model.mode;
+								switch (_p3.ctor) {
 									case 'Stopped':
 										return _user$project$Types$Tick;
 									case 'Tick':
@@ -10470,8 +10484,8 @@ var _user$project$Main$update = F2(
 					{
 						ctor: '::',
 						_0: function () {
-							var _p3 = model.mode;
-							switch (_p3.ctor) {
+							var _p4 = model.mode;
+							switch (_p4.ctor) {
 								case 'Stopped':
 									return _user$project$Ports$playAudio('snd/resume.mp3');
 								case 'Tick':
@@ -10489,8 +10503,8 @@ var _user$project$Main$update = F2(
 						model,
 						{
 							player: function () {
-								var _p4 = model.player;
-								switch (_p4.ctor) {
+								var _p5 = model.player;
+								switch (_p5.ctor) {
 									case 'None':
 										return _elm_lang$core$Native_Utils.eq(_p0._0, _user$project$Types$PlayerOne) ? _user$project$Types$PlayerTwo : _user$project$Types$PlayerOne;
 									case 'PlayerOne':
@@ -10500,8 +10514,8 @@ var _user$project$Main$update = F2(
 								}
 							}(),
 							mode: function () {
-								var _p5 = model.mode;
-								if (_p5.ctor === 'Stopped') {
+								var _p6 = model.mode;
+								if (_p6.ctor === 'Stopped') {
 									return _user$project$Types$Tick;
 								} else {
 									return model.mode;

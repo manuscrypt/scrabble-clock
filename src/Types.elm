@@ -13,6 +13,7 @@ type alias Model =
     , size : Size
     , challenge : Maybe Time
     , resetGesture : Touch.Gesture
+    , resetButtonPos: (Float, Float)
     }
 
 

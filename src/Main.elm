@@ -39,6 +39,7 @@ init config =
       , size = { width = 0, height = 0 }
       , challenge = Nothing
       , resetGesture = Touch.blanco
+      , resetButtonPos = (0,0)
       }
     , Task.perform SizeChanged Window.size
     )
@@ -76,7 +77,7 @@ checkChallenge t =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case Debug.log "msg" msg of
+    case msg of
         SizeChanged size ->
             ( { model | size = size }, Cmd.none )
 
@@ -111,11 +112,12 @@ update msg model =
                 nextModel ! []
 
         ResetSwipe ev ->
-            { model | resetGesture = Touch.record ev model.resetGesture }! []
+            let xx = Debug.log "ev" ev 
+            in { model | resetGesture = Touch.record ev model.resetGesture }! []
 
         ResetSwipeEnd ev ->
             let
-                gesture = Debug.log "g" <| 
+                gesture = 
                         Touch.record ev model.resetGesture
                 complete = Touch.isRightSwipe 5 gesture
 
