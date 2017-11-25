@@ -8600,6 +8600,356 @@ var _elm_lang$html$Html$summary = _elm_lang$html$Html$node('summary');
 var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
 var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
 
+var _elm_lang$html$Html_Attributes$map = _elm_lang$virtual_dom$VirtualDom$mapProperty;
+var _elm_lang$html$Html_Attributes$attribute = _elm_lang$virtual_dom$VirtualDom$attribute;
+var _elm_lang$html$Html_Attributes$contextmenu = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'contextmenu', value);
+};
+var _elm_lang$html$Html_Attributes$draggable = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'draggable', value);
+};
+var _elm_lang$html$Html_Attributes$itemprop = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'itemprop', value);
+};
+var _elm_lang$html$Html_Attributes$tabindex = function (n) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'tabIndex',
+		_elm_lang$core$Basics$toString(n));
+};
+var _elm_lang$html$Html_Attributes$charset = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'charset', value);
+};
+var _elm_lang$html$Html_Attributes$height = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'height',
+		_elm_lang$core$Basics$toString(value));
+};
+var _elm_lang$html$Html_Attributes$width = function (value) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'width',
+		_elm_lang$core$Basics$toString(value));
+};
+var _elm_lang$html$Html_Attributes$formaction = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'formAction', value);
+};
+var _elm_lang$html$Html_Attributes$list = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'list', value);
+};
+var _elm_lang$html$Html_Attributes$minlength = function (n) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'minLength',
+		_elm_lang$core$Basics$toString(n));
+};
+var _elm_lang$html$Html_Attributes$maxlength = function (n) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'maxlength',
+		_elm_lang$core$Basics$toString(n));
+};
+var _elm_lang$html$Html_Attributes$size = function (n) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'size',
+		_elm_lang$core$Basics$toString(n));
+};
+var _elm_lang$html$Html_Attributes$form = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'form', value);
+};
+var _elm_lang$html$Html_Attributes$cols = function (n) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'cols',
+		_elm_lang$core$Basics$toString(n));
+};
+var _elm_lang$html$Html_Attributes$rows = function (n) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'rows',
+		_elm_lang$core$Basics$toString(n));
+};
+var _elm_lang$html$Html_Attributes$challenge = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'challenge', value);
+};
+var _elm_lang$html$Html_Attributes$media = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'media', value);
+};
+var _elm_lang$html$Html_Attributes$rel = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'rel', value);
+};
+var _elm_lang$html$Html_Attributes$datetime = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'datetime', value);
+};
+var _elm_lang$html$Html_Attributes$pubdate = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'pubdate', value);
+};
+var _elm_lang$html$Html_Attributes$colspan = function (n) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'colspan',
+		_elm_lang$core$Basics$toString(n));
+};
+var _elm_lang$html$Html_Attributes$rowspan = function (n) {
+	return A2(
+		_elm_lang$html$Html_Attributes$attribute,
+		'rowspan',
+		_elm_lang$core$Basics$toString(n));
+};
+var _elm_lang$html$Html_Attributes$manifest = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$attribute, 'manifest', value);
+};
+var _elm_lang$html$Html_Attributes$property = _elm_lang$virtual_dom$VirtualDom$property;
+var _elm_lang$html$Html_Attributes$stringProperty = F2(
+	function (name, string) {
+		return A2(
+			_elm_lang$html$Html_Attributes$property,
+			name,
+			_elm_lang$core$Json_Encode$string(string));
+	});
+var _elm_lang$html$Html_Attributes$class = function (name) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'className', name);
+};
+var _elm_lang$html$Html_Attributes$id = function (name) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'id', name);
+};
+var _elm_lang$html$Html_Attributes$title = function (name) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'title', name);
+};
+var _elm_lang$html$Html_Attributes$accesskey = function ($char) {
+	return A2(
+		_elm_lang$html$Html_Attributes$stringProperty,
+		'accessKey',
+		_elm_lang$core$String$fromChar($char));
+};
+var _elm_lang$html$Html_Attributes$dir = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'dir', value);
+};
+var _elm_lang$html$Html_Attributes$dropzone = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'dropzone', value);
+};
+var _elm_lang$html$Html_Attributes$lang = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'lang', value);
+};
+var _elm_lang$html$Html_Attributes$content = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'content', value);
+};
+var _elm_lang$html$Html_Attributes$httpEquiv = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'httpEquiv', value);
+};
+var _elm_lang$html$Html_Attributes$language = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'language', value);
+};
+var _elm_lang$html$Html_Attributes$src = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'src', value);
+};
+var _elm_lang$html$Html_Attributes$alt = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'alt', value);
+};
+var _elm_lang$html$Html_Attributes$preload = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'preload', value);
+};
+var _elm_lang$html$Html_Attributes$poster = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'poster', value);
+};
+var _elm_lang$html$Html_Attributes$kind = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'kind', value);
+};
+var _elm_lang$html$Html_Attributes$srclang = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'srclang', value);
+};
+var _elm_lang$html$Html_Attributes$sandbox = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'sandbox', value);
+};
+var _elm_lang$html$Html_Attributes$srcdoc = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'srcdoc', value);
+};
+var _elm_lang$html$Html_Attributes$type_ = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'type', value);
+};
+var _elm_lang$html$Html_Attributes$value = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'value', value);
+};
+var _elm_lang$html$Html_Attributes$defaultValue = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'defaultValue', value);
+};
+var _elm_lang$html$Html_Attributes$placeholder = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'placeholder', value);
+};
+var _elm_lang$html$Html_Attributes$accept = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'accept', value);
+};
+var _elm_lang$html$Html_Attributes$acceptCharset = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'acceptCharset', value);
+};
+var _elm_lang$html$Html_Attributes$action = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'action', value);
+};
+var _elm_lang$html$Html_Attributes$autocomplete = function (bool) {
+	return A2(
+		_elm_lang$html$Html_Attributes$stringProperty,
+		'autocomplete',
+		bool ? 'on' : 'off');
+};
+var _elm_lang$html$Html_Attributes$enctype = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'enctype', value);
+};
+var _elm_lang$html$Html_Attributes$method = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'method', value);
+};
+var _elm_lang$html$Html_Attributes$name = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'name', value);
+};
+var _elm_lang$html$Html_Attributes$pattern = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'pattern', value);
+};
+var _elm_lang$html$Html_Attributes$for = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'htmlFor', value);
+};
+var _elm_lang$html$Html_Attributes$max = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'max', value);
+};
+var _elm_lang$html$Html_Attributes$min = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'min', value);
+};
+var _elm_lang$html$Html_Attributes$step = function (n) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'step', n);
+};
+var _elm_lang$html$Html_Attributes$wrap = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'wrap', value);
+};
+var _elm_lang$html$Html_Attributes$usemap = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'useMap', value);
+};
+var _elm_lang$html$Html_Attributes$shape = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'shape', value);
+};
+var _elm_lang$html$Html_Attributes$coords = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'coords', value);
+};
+var _elm_lang$html$Html_Attributes$keytype = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'keytype', value);
+};
+var _elm_lang$html$Html_Attributes$align = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'align', value);
+};
+var _elm_lang$html$Html_Attributes$cite = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'cite', value);
+};
+var _elm_lang$html$Html_Attributes$href = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'href', value);
+};
+var _elm_lang$html$Html_Attributes$target = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'target', value);
+};
+var _elm_lang$html$Html_Attributes$downloadAs = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'download', value);
+};
+var _elm_lang$html$Html_Attributes$hreflang = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'hreflang', value);
+};
+var _elm_lang$html$Html_Attributes$ping = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'ping', value);
+};
+var _elm_lang$html$Html_Attributes$start = function (n) {
+	return A2(
+		_elm_lang$html$Html_Attributes$stringProperty,
+		'start',
+		_elm_lang$core$Basics$toString(n));
+};
+var _elm_lang$html$Html_Attributes$headers = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'headers', value);
+};
+var _elm_lang$html$Html_Attributes$scope = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$stringProperty, 'scope', value);
+};
+var _elm_lang$html$Html_Attributes$boolProperty = F2(
+	function (name, bool) {
+		return A2(
+			_elm_lang$html$Html_Attributes$property,
+			name,
+			_elm_lang$core$Json_Encode$bool(bool));
+	});
+var _elm_lang$html$Html_Attributes$hidden = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'hidden', bool);
+};
+var _elm_lang$html$Html_Attributes$contenteditable = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'contentEditable', bool);
+};
+var _elm_lang$html$Html_Attributes$spellcheck = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'spellcheck', bool);
+};
+var _elm_lang$html$Html_Attributes$async = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'async', bool);
+};
+var _elm_lang$html$Html_Attributes$defer = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'defer', bool);
+};
+var _elm_lang$html$Html_Attributes$scoped = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'scoped', bool);
+};
+var _elm_lang$html$Html_Attributes$autoplay = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'autoplay', bool);
+};
+var _elm_lang$html$Html_Attributes$controls = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'controls', bool);
+};
+var _elm_lang$html$Html_Attributes$loop = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'loop', bool);
+};
+var _elm_lang$html$Html_Attributes$default = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'default', bool);
+};
+var _elm_lang$html$Html_Attributes$seamless = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'seamless', bool);
+};
+var _elm_lang$html$Html_Attributes$checked = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'checked', bool);
+};
+var _elm_lang$html$Html_Attributes$selected = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'selected', bool);
+};
+var _elm_lang$html$Html_Attributes$autofocus = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'autofocus', bool);
+};
+var _elm_lang$html$Html_Attributes$disabled = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'disabled', bool);
+};
+var _elm_lang$html$Html_Attributes$multiple = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'multiple', bool);
+};
+var _elm_lang$html$Html_Attributes$novalidate = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'noValidate', bool);
+};
+var _elm_lang$html$Html_Attributes$readonly = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'readOnly', bool);
+};
+var _elm_lang$html$Html_Attributes$required = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'required', bool);
+};
+var _elm_lang$html$Html_Attributes$ismap = function (value) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'isMap', value);
+};
+var _elm_lang$html$Html_Attributes$download = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'download', bool);
+};
+var _elm_lang$html$Html_Attributes$reversed = function (bool) {
+	return A2(_elm_lang$html$Html_Attributes$boolProperty, 'reversed', bool);
+};
+var _elm_lang$html$Html_Attributes$classList = function (list) {
+	return _elm_lang$html$Html_Attributes$class(
+		A2(
+			_elm_lang$core$String$join,
+			' ',
+			A2(
+				_elm_lang$core$List$map,
+				_elm_lang$core$Tuple$first,
+				A2(_elm_lang$core$List$filter, _elm_lang$core$Tuple$second, list))));
+};
+var _elm_lang$html$Html_Attributes$style = _elm_lang$virtual_dom$VirtualDom$style;
+
 var _elm_lang$html$Html_Events$keyCode = A2(_elm_lang$core$Json_Decode$field, 'keyCode', _elm_lang$core$Json_Decode$int);
 var _elm_lang$html$Html_Events$targetChecked = A2(
 	_elm_lang$core$Json_Decode$at,
@@ -9734,7 +10084,7 @@ var _zwilias$elm_touch_events$Touch$onStart = function (tagger) {
 			}));
 };
 
-var _user$project$Types$overtimeConfig = {duration: 1 * _elm_lang$core$Time$second, overtime: 2 * _elm_lang$core$Time$second, challenge: 2 * _elm_lang$core$Time$second};
+var _user$project$Types$overtimeConfig = {duration: 1 * _elm_lang$core$Time$second, overtime: 2 * _elm_lang$core$Time$second, challenge: 2 * _elm_lang$core$Time$second, sound: true};
 var _user$project$Types$minutes = function (_p0) {
 	return A2(
 		F2(
@@ -9753,20 +10103,54 @@ var _user$project$Types$minutes = function (_p0) {
 var _user$project$Types$defaultConfig = {
 	duration: _user$project$Types$minutes(25),
 	overtime: _user$project$Types$minutes(10),
-	challenge: 20 * _elm_lang$core$Time$second
+	challenge: 20 * _elm_lang$core$Time$second,
+	sound: true
 };
-var _user$project$Types$Model = F9(
-	function (a, b, c, d, e, f, g, h, i) {
-		return {playerOne: a, playerTwo: b, player: c, mode: d, config: e, size: f, challenge: g, resetGesture: h, resetButtonPos: i};
-	});
-var _user$project$Types$TimerConfig = F3(
-	function (a, b, c) {
-		return {duration: a, overtime: b, challenge: c};
+var _user$project$Types$TimerConfig = F4(
+	function (a, b, c, d) {
+		return {duration: a, overtime: b, challenge: c, sound: d};
 	});
 var _user$project$Types$Timer = F2(
 	function (a, b) {
 		return {player: a, time: b};
 	});
+var _user$project$Types$Model = F9(
+	function (a, b, c, d, e, f, g, h, i) {
+		return {playerOne: a, playerTwo: b, player: c, mode: d, config: e, size: f, challenge: g, resetGesture: h, resetButtonPos: i};
+	});
+var _user$project$Types$GameOver = function (a) {
+	return {ctor: 'GameOver', _0: a};
+};
+var _user$project$Types$Settings = {ctor: 'Settings'};
+var _user$project$Types$Pause = {ctor: 'Pause'};
+var _user$project$Types$Tick = {ctor: 'Tick'};
+var _user$project$Types$Stopped = function (a) {
+	return {ctor: 'Stopped', _0: a};
+};
+var _user$project$Types$PlayerTwo = {ctor: 'PlayerTwo'};
+var _user$project$Types$PlayerOne = {ctor: 'PlayerOne'};
+var _user$project$Types$None = {ctor: 'None'};
+var _user$project$Types$Challenge = function (a) {
+	return {ctor: 'Challenge', _0: a};
+};
+var _user$project$Types$Overtime = function (a) {
+	return {ctor: 'Overtime', _0: a};
+};
+var _user$project$Types$Duration = function (a) {
+	return {ctor: 'Duration', _0: a};
+};
+var _user$project$Types$Sound = {ctor: 'Sound'};
+var _user$project$Types$TimeSetting = function (a) {
+	return {ctor: 'TimeSetting', _0: a};
+};
+var _user$project$Types$SaveSettings = {ctor: 'SaveSettings'};
+var _user$project$Types$SoundSettingChanged = {ctor: 'SoundSettingChanged'};
+var _user$project$Types$TimeSettingChanged = function (a) {
+	return {ctor: 'TimeSettingChanged', _0: a};
+};
+var _user$project$Types$ShowSettings = function (a) {
+	return {ctor: 'ShowSettings', _0: a};
+};
 var _user$project$Types$SizeChanged = function (a) {
 	return {ctor: 'SizeChanged', _0: a};
 };
@@ -9783,16 +10167,8 @@ var _user$project$Types$Toggle = {ctor: 'Toggle'};
 var _user$project$Types$Tapped = function (a) {
 	return {ctor: 'Tapped', _0: a};
 };
-var _user$project$Types$GameOver = function (a) {
-	return {ctor: 'GameOver', _0: a};
-};
-var _user$project$Types$Tick = {ctor: 'Tick'};
-var _user$project$Types$Stopped = {ctor: 'Stopped'};
-var _user$project$Types$PlayerTwo = {ctor: 'PlayerTwo'};
-var _user$project$Types$PlayerOne = {ctor: 'PlayerOne'};
-var _user$project$Types$None = {ctor: 'None'};
 
-var _user$project$View$translate = function (_p0) {
+var _user$project$Util$translate = function (_p0) {
 	var _p1 = _p0;
 	return A2(
 		_elm_lang$core$Basics_ops['++'],
@@ -9808,19 +10184,283 @@ var _user$project$View$translate = function (_p0) {
 					_elm_lang$core$Basics$toString(_p1._1),
 					')'))));
 };
+var _user$project$Util$timeToString = function (time) {
+	var s = A2(
+		_mgold$elm_date_format$Time_Format$format,
+		'%M:%S',
+		_elm_lang$core$Basics$abs(time));
+	return (_elm_lang$core$Native_Utils.cmp(time, 0) < 0) ? A2(_elm_lang$core$Basics_ops['++'], '-', s) : s;
+};
+var _user$project$Util$wh = function (model) {
+	return {
+		ctor: '_Tuple2',
+		_0: _elm_lang$core$Basics$toFloat(model.size.width),
+		_1: _elm_lang$core$Basics$toFloat(model.size.height)
+	};
+};
+
+var _user$project$SettingsView$timeButton = F3(
+	function (secs, current, setting) {
+		return A2(
+			_elm_lang$html$Html$button,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(
+					_user$project$Types$TimeSettingChanged(
+						setting(secs))),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$classList(
+						{
+							ctor: '::',
+							_0: A2(
+								F2(
+									function (v0, v1) {
+										return {ctor: '_Tuple2', _0: v0, _1: v1};
+									}),
+								'active-button',
+								_elm_lang$core$Native_Utils.eq(secs, current)),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(
+					_user$project$Util$timeToString(secs)),
+				_1: {ctor: '[]'}
+			});
+	});
+var _user$project$SettingsView$secs = function (x) {
+	return _elm_lang$core$Time$second * x;
+};
+var _user$project$SettingsView$challenges = function (model) {
+	return A2(
+		_elm_lang$core$List$map,
+		function (s) {
+			return A3(_user$project$SettingsView$timeButton, s, model.config.challenge, _user$project$Types$Challenge);
+		},
+		A2(
+			_elm_lang$core$List$map,
+			_user$project$SettingsView$secs,
+			{
+				ctor: '::',
+				_0: 25,
+				_1: {
+					ctor: '::',
+					_0: 20,
+					_1: {
+						ctor: '::',
+						_0: 15,
+						_1: {ctor: '[]'}
+					}
+				}
+			}));
+};
+var _user$project$SettingsView$overtimes = function (model) {
+	return A2(
+		_elm_lang$core$List$map,
+		function (s) {
+			return A3(_user$project$SettingsView$timeButton, s, model.config.overtime, _user$project$Types$Overtime);
+		},
+		A2(
+			_elm_lang$core$List$map,
+			_user$project$SettingsView$secs,
+			A2(
+				_elm_lang$core$List$map,
+				F2(
+					function (x, y) {
+						return x * y;
+					})(60),
+				{
+					ctor: '::',
+					_0: 15,
+					_1: {
+						ctor: '::',
+						_0: 10,
+						_1: {
+							ctor: '::',
+							_0: 5,
+							_1: {ctor: '[]'}
+						}
+					}
+				})));
+};
+var _user$project$SettingsView$durations = function (model) {
+	return A2(
+		_elm_lang$core$List$map,
+		function (s) {
+			return A3(_user$project$SettingsView$timeButton, s, model.config.duration, _user$project$Types$Duration);
+		},
+		A2(
+			_elm_lang$core$List$map,
+			_user$project$SettingsView$secs,
+			A2(
+				_elm_lang$core$List$map,
+				F2(
+					function (x, y) {
+						return x * y;
+					})(60),
+				{
+					ctor: '::',
+					_0: 30,
+					_1: {
+						ctor: '::',
+						_0: 25,
+						_1: {
+							ctor: '::',
+							_0: 20,
+							_1: {ctor: '[]'}
+						}
+					}
+				})));
+};
+var _user$project$SettingsView$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('settings'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$h1,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Einstellungen (Min:Sek)'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$h2,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Spielzeit pro Spieler'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{ctor: '[]'},
+						_user$project$SettingsView$durations(model)),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$h2,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('Maximale Überzeit'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$div,
+								{ctor: '[]'},
+								_user$project$SettingsView$overtimes(model)),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$h2,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('Zeit zum Anzweifeln'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$div,
+										{ctor: '[]'},
+										_user$project$SettingsView$challenges(model)),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$h2,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('Audio-Effekte'),
+												_1: {ctor: '[]'}
+											}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$div,
+												{ctor: '[]'},
+												{
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$button,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Events$onClick(_user$project$Types$SoundSettingChanged),
+															_1: {ctor: '[]'}
+														},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text(
+																model.config.sound ? 'An' : 'Aus'),
+															_1: {ctor: '[]'}
+														}),
+													_1: {ctor: '[]'}
+												}),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$hr,
+													{ctor: '[]'},
+													{ctor: '[]'}),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$button,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Events$onClick(_user$project$Types$SaveSettings),
+															_1: {ctor: '[]'}
+														},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('Speichern'),
+															_1: {ctor: '[]'}
+														}),
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		});
+};
+
 var _user$project$View$bar = F4(
-	function (stopped, secsPerc, _p3, _p2) {
-		var _p4 = _p3;
-		var _p5 = _p2;
-		var _p7 = _p5._0;
-		var _p6 = _p5._1;
+	function (stopped, secsPerc, _p1, _p0) {
+		var _p2 = _p1;
+		var _p3 = _p0;
+		var _p5 = _p3._0;
+		var _p4 = _p3._1;
 		return A2(
 			_elm_lang$svg$Svg$g,
 			{
 				ctor: '::',
 				_0: _elm_lang$svg$Svg_Attributes$transform(
-					_user$project$View$translate(
-						{ctor: '_Tuple2', _0: _p4._0, _1: _p4._1})),
+					_user$project$Util$translate(
+						{ctor: '_Tuple2', _0: _p2._0, _1: _p2._1})),
 				_1: {ctor: '[]'}
 			},
 			{
@@ -9830,19 +10470,19 @@ var _user$project$View$bar = F4(
 					{
 						ctor: '::',
 						_0: _elm_lang$svg$Svg_Attributes$x(
-							_elm_lang$core$Basics$toString((0 - _p7) / 2)),
+							_elm_lang$core$Basics$toString((0 - _p5) / 2)),
 						_1: {
 							ctor: '::',
 							_0: _elm_lang$svg$Svg_Attributes$y(
-								_elm_lang$core$Basics$toString((0 - _p6) / 2)),
+								_elm_lang$core$Basics$toString((0 - _p4) / 2)),
 							_1: {
 								ctor: '::',
 								_0: _elm_lang$svg$Svg_Attributes$width(
-									_elm_lang$core$Basics$toString(_p7)),
+									_elm_lang$core$Basics$toString(_p5)),
 								_1: {
 									ctor: '::',
 									_0: _elm_lang$svg$Svg_Attributes$height(
-										_elm_lang$core$Basics$toString(_p6)),
+										_elm_lang$core$Basics$toString(_p4)),
 									_1: {
 										ctor: '::',
 										_0: _elm_lang$svg$Svg_Attributes$fill(
@@ -9865,19 +10505,19 @@ var _user$project$View$bar = F4(
 						{
 							ctor: '::',
 							_0: _elm_lang$svg$Svg_Attributes$x(
-								_elm_lang$core$Basics$toString((0 - _p7) / 2)),
+								_elm_lang$core$Basics$toString((0 - _p5) / 2)),
 							_1: {
 								ctor: '::',
 								_0: _elm_lang$svg$Svg_Attributes$y(
-									_elm_lang$core$Basics$toString((0 - _p6) / 2)),
+									_elm_lang$core$Basics$toString((0 - _p4) / 2)),
 								_1: {
 									ctor: '::',
 									_0: _elm_lang$svg$Svg_Attributes$width(
-										_elm_lang$core$Basics$toString(_p7)),
+										_elm_lang$core$Basics$toString(_p5)),
 									_1: {
 										ctor: '::',
 										_0: _elm_lang$svg$Svg_Attributes$height(
-											_elm_lang$core$Basics$toString(_p6 * secsPerc)),
+											_elm_lang$core$Basics$toString(_p4 * secsPerc)),
 										_1: {
 											ctor: '::',
 											_0: _elm_lang$svg$Svg_Attributes$fill(
@@ -9926,15 +10566,15 @@ var _user$project$View$pause = F3(
 			});
 	});
 var _user$project$View$viewButton = function (model) {
-	var _p8 = {ctor: '_Tuple2', _0: 66, _1: 60};
-	var w = _p8._0;
-	var h = _p8._1;
+	var _p6 = {ctor: '_Tuple2', _0: 66, _1: 60};
+	var w = _p6._0;
+	var h = _p6._1;
 	return A2(
 		_elm_lang$svg$Svg$g,
 		{
 			ctor: '::',
 			_0: _elm_lang$svg$Svg_Attributes$transform(
-				_user$project$View$translate(
+				_user$project$Util$translate(
 					{
 						ctor: '_Tuple2',
 						_0: _elm_lang$core$Basics$toFloat(model.size.width) / 2,
@@ -9946,7 +10586,9 @@ var _user$project$View$viewButton = function (model) {
 			ctor: '::',
 			_0: A3(
 				_user$project$View$pause,
-				_elm_lang$core$Native_Utils.eq(model.mode, _user$project$Types$Stopped),
+				_elm_lang$core$Native_Utils.eq(
+					model.mode,
+					_user$project$Types$Stopped(_user$project$Types$Pause)),
 				model.config.challenge,
 				A2(_elm_lang$core$Maybe$withDefault, 0, model.challenge)),
 			_1: {
@@ -9992,15 +10634,15 @@ var _user$project$View$viewButton = function (model) {
 };
 var _user$project$View$viewResetButton = F2(
 	function (pos, model) {
-		var _p9 = {ctor: '_Tuple2', _0: 36, _1: 36};
-		var w = _p9._0;
-		var h = _p9._1;
+		var _p7 = {ctor: '_Tuple2', _0: 36, _1: 36};
+		var w = _p7._0;
+		var h = _p7._1;
 		return A2(
 			_elm_lang$svg$Svg$g,
 			{
 				ctor: '::',
 				_0: _elm_lang$svg$Svg_Attributes$transform(
-					_user$project$View$translate(pos)),
+					_user$project$Util$translate(pos)),
 				_1: {ctor: '[]'}
 			},
 			{
@@ -10048,13 +10690,68 @@ var _user$project$View$viewResetButton = F2(
 				_1: {ctor: '[]'}
 			});
 	});
+var _user$project$View$viewSettingsButton = F2(
+	function (pos, model) {
+		var _p8 = {ctor: '_Tuple2', _0: 36, _1: 36};
+		var w = _p8._0;
+		var h = _p8._1;
+		return A2(
+			_elm_lang$svg$Svg$g,
+			{
+				ctor: '::',
+				_0: _elm_lang$svg$Svg_Attributes$transform(
+					_user$project$Util$translate(pos)),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$svg$Svg$image,
+					{
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$x(
+							_elm_lang$core$Basics$toString((0 - w) / 2)),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$y(
+								_elm_lang$core$Basics$toString((0 - h) / 2)),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$width(
+									_elm_lang$core$Basics$toString(w)),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$height(
+										_elm_lang$core$Basics$toString(h)),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$xlinkHref('img/settings.svg'),
+										_1: {
+											ctor: '::',
+											_0: _zwilias$elm_touch_events$Touch$onEnd(_user$project$Types$ShowSettings),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {ctor: '[]'}
+			});
+	});
 var _user$project$View$tapRect = F4(
-	function (isActive, _p10, model, player) {
-		var _p11 = _p10;
+	function (isActive, _p9, model, player) {
+		var _p10 = _p9;
 		var backgroundColor = function () {
-			var _p12 = model.mode;
-			if (_p12.ctor === 'GameOver') {
-				return _elm_lang$core$Native_Utils.eq(_p12._0, player) ? 'red' : 'green';
+			var _p11 = model.mode;
+			if (_p11.ctor === 'Stopped') {
+				var _p12 = _p11._0;
+				if (_p12.ctor === 'GameOver') {
+					return _elm_lang$core$Native_Utils.eq(_p12._0, player) ? 'red' : 'green';
+				} else {
+					return 'transparent';
+				}
 			} else {
 				return 'transparent';
 			}
@@ -10118,19 +10815,17 @@ var _user$project$View$tapRect = F4(
 				} : {ctor: '[]'}),
 			{ctor: '[]'});
 	});
-var _user$project$View$timeToString = function (time) {
-	var s = A2(
-		_mgold$elm_date_format$Time_Format$format,
-		'%M:%S',
-		_elm_lang$core$Basics$abs(time));
-	return (_elm_lang$core$Native_Utils.cmp(time, 0) < 0) ? A2(_elm_lang$core$Basics_ops['++'], '-', s) : s;
-};
 var _user$project$View$viewTimer = F4(
 	function (rot, pos, model, timer) {
 		var isActive = function () {
 			var _p14 = model.mode;
-			if (_p14.ctor === 'GameOver') {
-				return false;
+			if (_p14.ctor === 'Stopped') {
+				var _p15 = _p14._0;
+				if (_p15.ctor === 'Pause') {
+					return true;
+				} else {
+					return false;
+				}
 			} else {
 				return _elm_lang$core$Native_Utils.eq(timer.player, model.player) || _elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None);
 			}
@@ -10142,7 +10837,7 @@ var _user$project$View$viewTimer = F4(
 				_0: _elm_lang$svg$Svg_Attributes$transform(
 					A2(
 						_elm_lang$core$Basics_ops['++'],
-						_user$project$View$translate(pos),
+						_user$project$Util$translate(pos),
 						A2(
 							_elm_lang$core$Basics_ops['++'],
 							' rotate(',
@@ -10176,13 +10871,17 @@ var _user$project$View$viewTimer = F4(
 											_0: _elm_lang$svg$Svg_Attributes$strokeWidth('2'),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$opacity(
-													isActive ? '1' : '0.5'),
+												_0: _elm_lang$svg$Svg_Attributes$class('timer-text'),
 												_1: {
 													ctor: '::',
-													_0: _elm_lang$svg$Svg_Attributes$fill(
-														isActive ? 'black' : 'grey'),
-													_1: {ctor: '[]'}
+													_0: _elm_lang$svg$Svg_Attributes$opacity(
+														isActive ? '1' : '0.5'),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$svg$Svg_Attributes$fill(
+															isActive ? 'black' : 'grey'),
+														_1: {ctor: '[]'}
+													}
 												}
 											}
 										}
@@ -10194,7 +10893,7 @@ var _user$project$View$viewTimer = F4(
 					{
 						ctor: '::',
 						_0: _elm_lang$svg$Svg$text(
-							_user$project$View$timeToString(timer.time)),
+							_user$project$Util$timeToString(timer.time)),
 						_1: {ctor: '[]'}
 					}),
 				_1: {
@@ -10205,8 +10904,8 @@ var _user$project$View$viewTimer = F4(
 			});
 	});
 var _user$project$View$viewChallenge = function (mbChallenge) {
-	var _p15 = mbChallenge;
-	if (_p15.ctor === 'Nothing') {
+	var _p16 = mbChallenge;
+	if (_p16.ctor === 'Nothing') {
 		return A2(
 			_elm_lang$svg$Svg$g,
 			{ctor: '[]'},
@@ -10238,7 +10937,7 @@ var _user$project$View$viewChallenge = function (mbChallenge) {
 										_1: {
 											ctor: '::',
 											_0: _elm_lang$svg$Svg_Attributes$transform(
-												_user$project$View$translate(
+												_user$project$Util$translate(
 													{ctor: '_Tuple2', _0: 100, _1: 100})),
 											_1: {ctor: '[]'}
 										}
@@ -10252,7 +10951,7 @@ var _user$project$View$viewChallenge = function (mbChallenge) {
 			{
 				ctor: '::',
 				_0: _elm_lang$svg$Svg$text(
-					_elm_lang$core$Basics$toString(_p15._0)),
+					_elm_lang$core$Basics$toString(_p16._0)),
 				_1: {ctor: '[]'}
 			});
 	}
@@ -10265,18 +10964,18 @@ var _user$project$View$wh = function (model) {
 	};
 };
 var _user$project$View$resetButtonPos = function (model) {
-	var _p16 = _user$project$View$wh(model);
-	var w = _p16._0;
-	var h = _p16._1;
-	var _p17 = {ctor: '_Tuple2', _0: w / 10, _1: h / 2};
-	var dpX = _p17._0;
-	var dpY = _p17._1;
+	var _p17 = _user$project$View$wh(model);
+	var w = _p17._0;
+	var h = _p17._1;
+	var _p18 = {ctor: '_Tuple2', _0: w / 10, _1: h / 2};
+	var dpX = _p18._0;
+	var dpY = _p18._1;
 	return _elm_lang$core$Native_Utils.eq(model.resetGesture, _zwilias$elm_touch_events$Touch$blanco) ? {ctor: '_Tuple2', _0: dpX, _1: dpY} : model.resetButtonPos;
 };
-var _user$project$View$view = function (model) {
-	var _p18 = _user$project$View$wh(model);
-	var w = _p18._0;
-	var h = _p18._1;
+var _user$project$View$viewGame = function (model) {
+	var _p19 = _user$project$View$wh(model);
+	var w = _p19._0;
+	var h = _p19._1;
 	var posOne = {ctor: '_Tuple2', _0: w / 2, _1: h / 4};
 	var posTwo = {ctor: '_Tuple2', _0: w / 2, _1: (3 * h) / 4};
 	return A2(
@@ -10310,13 +11009,20 @@ var _user$project$View$view = function (model) {
 							_user$project$View$viewResetButton,
 							_user$project$View$resetButtonPos(model),
 							model),
-						_1: {ctor: '[]'}
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_user$project$View$viewSettingsButton,
+								{ctor: '_Tuple2', _0: (9 * w) / 10, _1: h / 2},
+								model),
+							_1: {ctor: '[]'}
+						}
 					}
 				}
 			},
 			function () {
-				var _p19 = model.mode;
-				if (_p19.ctor === 'GameOver') {
+				var _p20 = model.mode;
+				if (_p20.ctor === 'Stopped') {
 					return {ctor: '[]'};
 				} else {
 					return (!_elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None)) ? {
@@ -10326,6 +11032,19 @@ var _user$project$View$view = function (model) {
 					} : {ctor: '[]'};
 				}
 			}()));
+};
+var _user$project$View$view = function (model) {
+	var _p21 = model.mode;
+	if (_p21.ctor === 'Stopped') {
+		var _p22 = _p21._0;
+		if (_p22.ctor === 'Settings') {
+			return _user$project$SettingsView$view(model);
+		} else {
+			return _user$project$View$viewGame(model);
+		}
+	} else {
+		return _user$project$View$viewGame(model);
+	}
 };
 
 var _user$project$Main$getCoord = function (ev) {
@@ -10358,7 +11077,7 @@ var _user$project$Main$init = function (config) {
 			playerOne: A2(_user$project$Main$initPlayer, config, _user$project$Types$PlayerOne),
 			playerTwo: A2(_user$project$Main$initPlayer, config, _user$project$Types$PlayerTwo),
 			player: _user$project$Types$None,
-			mode: _user$project$Types$Stopped,
+			mode: _user$project$Types$Stopped(_user$project$Types$Pause),
 			config: config,
 			size: {width: 0, height: 0},
 			challenge: _elm_lang$core$Maybe$Nothing,
@@ -10368,7 +11087,7 @@ var _user$project$Main$init = function (config) {
 		_1: A2(_elm_lang$core$Task$perform, _user$project$Types$SizeChanged, _elm_lang$window$Window$size)
 	};
 };
-var _user$project$Main$reset = _user$project$Main$init(_user$project$Types$defaultConfig);
+var _user$project$Main$reset = _user$project$Main$init;
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p0 = msg;
@@ -10381,14 +11100,93 @@ var _user$project$Main$update = F2(
 						{size: _p0._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
+			case 'ShowSettings':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							mode: _user$project$Types$Stopped(_user$project$Types$Settings)
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'TimeSettingChanged':
+				var _p1 = _p0._0;
+				switch (_p1.ctor) {
+					case 'Duration':
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									config: function (c) {
+										return _elm_lang$core$Native_Utils.update(
+											c,
+											{duration: _p1._0});
+									}(model.config)
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					case 'Overtime':
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									config: function (c) {
+										return _elm_lang$core$Native_Utils.update(
+											c,
+											{overtime: _p1._0});
+									}(model.config)
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					default:
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									config: function (c) {
+										return _elm_lang$core$Native_Utils.update(
+											c,
+											{challenge: _p1._0});
+									}(model.config)
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+				}
+			case 'SoundSettingChanged':
+				var next = function (c) {
+					return _elm_lang$core$Native_Utils.update(
+						c,
+						{sound: !c.sound});
+				}(model.config);
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{config: next}),
+					_1: next.sound ? _user$project$Ports$playAudio('snd/resume.mp3') : _elm_lang$core$Platform_Cmd$none
+				};
+			case 'SaveSettings':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							mode: _user$project$Types$Stopped(_user$project$Types$Pause),
+							player: _user$project$Types$None
+						}),
+					{ctor: '[]'});
 			case 'TickSecond':
 				var nextChallenge = A2(
 					_elm_lang$core$Maybe$andThen,
 					_user$project$Main$checkChallenge,
 					A2(_elm_lang$core$Maybe$map, _user$project$Main$decTime, model.challenge));
 				var nextModel = function () {
-					var _p1 = model.player;
-					switch (_p1.ctor) {
+					var _p2 = model.player;
+					switch (_p2.ctor) {
 						case 'None':
 							return model;
 						case 'PlayerOne':
@@ -10412,30 +11210,32 @@ var _user$project$Main$update = F2(
 					_elm_lang$core$Native_Utils.update(
 						nextModel,
 						{
-							mode: _user$project$Types$GameOver(_user$project$Types$PlayerOne)
+							mode: _user$project$Types$Stopped(
+								_user$project$Types$GameOver(_user$project$Types$PlayerOne))
 						}),
 					{ctor: '[]'}) : ((_elm_lang$core$Native_Utils.cmp(nextModel.playerTwo.time, 0 - nextModel.config.overtime) < 1) ? A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						nextModel,
 						{
-							mode: _user$project$Types$GameOver(_user$project$Types$PlayerTwo)
+							mode: _user$project$Types$Stopped(
+								_user$project$Types$GameOver(_user$project$Types$PlayerTwo))
 						}),
 					{ctor: '[]'}) : A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					nextModel,
 					{ctor: '[]'}));
 			case 'ResetSwipe':
-				var _p3 = _p0._0;
-				var _p2 = _user$project$Main$getCoord(_p3);
-				var x = _p2.x;
-				var y = _p2.y;
+				var _p4 = _p0._0;
+				var _p3 = _user$project$Main$getCoord(_p4);
+				var x = _p3.x;
+				var y = _p3.y;
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
 						{
-							resetGesture: A2(_zwilias$elm_touch_events$Touch$record, _p3, model.resetGesture),
+							resetGesture: A2(_zwilias$elm_touch_events$Touch$record, _p4, model.resetGesture),
 							resetButtonPos: {
 								ctor: '_Tuple2',
 								_0: x,
@@ -10454,7 +11254,7 @@ var _user$project$Main$update = F2(
 					_elm_lang$core$Native_Utils.update(
 						model,
 						{resetGesture: _zwilias$elm_touch_events$Touch$blanco}),
-					{ctor: '[]'}) : _user$project$Main$reset;
+					{ctor: '[]'}) : _user$project$Main$reset(model.config);
 			case 'Toggle':
 				return A2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
@@ -10462,14 +11262,11 @@ var _user$project$Main$update = F2(
 						model,
 						{
 							mode: function () {
-								var _p4 = model.mode;
-								switch (_p4.ctor) {
-									case 'Stopped':
-										return _user$project$Types$Tick;
-									case 'Tick':
-										return _user$project$Types$Stopped;
-									default:
-										return _user$project$Types$Stopped;
+								var _p5 = model.mode;
+								if (_p5.ctor === 'Stopped') {
+									return _user$project$Types$Tick;
+								} else {
+									return _user$project$Types$Stopped(_user$project$Types$Pause);
 								}
 							}(),
 							challenge: _elm_lang$core$Maybe$Nothing,
@@ -10478,14 +11275,15 @@ var _user$project$Main$update = F2(
 					{
 						ctor: '::',
 						_0: function () {
-							var _p5 = model.mode;
-							switch (_p5.ctor) {
-								case 'Stopped':
+							if (model.config.sound) {
+								var _p6 = model.mode;
+								if (_p6.ctor === 'Stopped') {
 									return _user$project$Ports$playAudio('snd/resume.mp3');
-								case 'Tick':
+								} else {
 									return _user$project$Ports$playAudio('snd/pause.mp3');
-								default:
-									return _elm_lang$core$Platform_Cmd$none;
+								}
+							} else {
+								return _elm_lang$core$Platform_Cmd$none;
 							}
 						}(),
 						_1: {ctor: '[]'}
@@ -10497,8 +11295,8 @@ var _user$project$Main$update = F2(
 						model,
 						{
 							player: function () {
-								var _p6 = model.player;
-								switch (_p6.ctor) {
+								var _p7 = model.player;
+								switch (_p7.ctor) {
 									case 'None':
 										return _elm_lang$core$Native_Utils.eq(_p0._0, _user$project$Types$PlayerOne) ? _user$project$Types$PlayerTwo : _user$project$Types$PlayerOne;
 									case 'PlayerOne':
@@ -10508,8 +11306,8 @@ var _user$project$Main$update = F2(
 								}
 							}(),
 							mode: function () {
-								var _p7 = model.mode;
-								if (_p7.ctor === 'Stopped') {
+								var _p8 = model.mode;
+								if (_p8.ctor === 'Stopped') {
 									return _user$project$Types$Tick;
 								} else {
 									return model.mode;
@@ -10517,12 +11315,17 @@ var _user$project$Main$update = F2(
 							}(),
 							challenge: _elm_lang$core$Maybe$Just(model.config.challenge)
 						}),
-					_1: _user$project$Ports$playAudio('snd/click.mp3')
+					_1: model.config.sound ? _user$project$Ports$playAudio('snd/click.mp3') : _elm_lang$core$Platform_Cmd$none
 				};
 		}
 	});
 var _user$project$Main$main = _elm_lang$html$Html$program(
-	{init: _user$project$Main$reset, update: _user$project$Main$update, view: _user$project$View$view, subscriptions: _user$project$Main$subscriptions})();
+	{
+		init: _user$project$Main$reset(_user$project$Types$defaultConfig),
+		update: _user$project$Main$update,
+		view: _user$project$View$view,
+		subscriptions: _user$project$Main$subscriptions
+	})();
 
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};

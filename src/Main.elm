@@ -13,16 +13,16 @@ import Window exposing (Size)
 main : Program Never Model Msg
 main =
     Html.program
-        { init = reset
+        { init = reset defaultConfig
         , update = update
         , view = view
         , subscriptions = subscriptions
         }
 
 
-reset : ( Model, Cmd Msg )
+reset : TimerConfig -> ( Model, Cmd Msg )
 reset =
-    init defaultConfig
+    init
 
 
 initPlayer : TimerConfig -> Player -> Timer
@@ -35,7 +35,7 @@ init config =
     ( { playerOne = initPlayer config PlayerOne
       , playerTwo = initPlayer config PlayerTwo
       , player = None
-      , mode = Stopped
+      , mode = Stopped Pause
       , config = config
       , size = { width = 0, height = 0 }
       , challenge = Nothing
@@ -87,6 +87,35 @@ update msg model =
         SizeChanged size ->
             ( { model | size = size }, Cmd.none )
 
+        ShowSettings ev ->
+            ( { model | mode = Stopped Settings }, Cmd.none )
+
+        TimeSettingChanged sett ->
+            case sett of
+                Duration t ->
+                    ( { model | config = (\c -> { c | duration = t }) model.config }, Cmd.none )
+
+                Overtime t ->
+                    ( { model | config = (\c -> { c | overtime = t }) model.config }, Cmd.none )
+
+                Challenge t ->
+                    ( { model | config = (\c -> { c | challenge = t }) model.config }, Cmd.none )
+
+        SoundSettingChanged ->
+            let
+                next =
+                    (\c -> { c | sound = not c.sound }) model.config
+            in
+            ( { model | config = next }
+            , if next.sound then
+                playAudio "snd/resume.mp3"
+              else
+                Cmd.none
+            )
+
+        SaveSettings ->
+            { model | mode = Stopped Pause, player = None } ! []
+
         TickSecond t ->
             let
                 nextChallenge =
@@ -111,9 +140,9 @@ update msg model =
                             }
             in
             if nextModel.playerOne.time <= -nextModel.config.overtime then
-                { nextModel | mode = GameOver PlayerOne } ! []
+                { nextModel | mode = Stopped <| GameOver PlayerOne } ! []
             else if nextModel.playerTwo.time <= -nextModel.config.overtime then
-                { nextModel | mode = GameOver PlayerTwo } ! []
+                { nextModel | mode = Stopped <| GameOver PlayerTwo } ! []
             else
                 nextModel ! []
 
@@ -141,32 +170,29 @@ update msg model =
             if not complete then
                 { model | resetGesture = Touch.blanco } ! []
             else
-                reset
+                reset model.config
 
         Toggle ->
             { model
                 | mode =
                     case model.mode of
-                        Stopped ->
+                        Stopped _ ->
                             Tick
 
                         Tick ->
-                            Stopped
-
-                        GameOver _ ->
-                            Stopped
+                            Stopped Pause
                 , challenge = Nothing
                 , player = None
             }
-                ! [ case model.mode of
-                        Stopped ->
-                            playAudio "snd/resume.mp3"
+                ! [ if model.config.sound then
+                        case model.mode of
+                            Stopped _ ->
+                                playAudio "snd/resume.mp3"
 
-                        Tick ->
-                            playAudio "snd/pause.mp3"
-
-                        GameOver _ ->
-                            Cmd.none
+                            Tick ->
+                                playAudio "snd/pause.mp3"
+                    else
+                        Cmd.none
                   ]
 
         Tapped player ->
@@ -186,12 +212,15 @@ update msg model =
                             PlayerOne
                 , mode =
                     case model.mode of
-                        Stopped ->
+                        Stopped _ ->
                             Tick
 
                         _ ->
                             model.mode
                 , challenge = Just model.config.challenge
               }
-            , playAudio "snd/click.mp3"
+            , if model.config.sound then
+                playAudio "snd/click.mp3"
+              else
+                Cmd.none
             )

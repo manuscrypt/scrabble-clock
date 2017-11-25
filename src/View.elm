@@ -1,11 +1,11 @@
 module View exposing (..)
 
+import SettingsView as Settings
 import Svg exposing (Svg, g, path, rect, svg, text, text_)
 import Svg.Attributes exposing (..)
-import Time exposing (Time)
-import Time.Format as Time
 import Touch
 import Types exposing (..)
+import Util exposing (..)
 
 
 type alias Pos =
@@ -21,6 +21,21 @@ wh model =
 
 view : Model -> Svg Msg
 view model =
+    case model.mode of
+        Stopped stoppedMode ->
+            case stoppedMode of
+                Settings ->
+                    Settings.view model
+
+                _ ->
+                    viewGame model
+
+        Tick ->
+            viewGame model
+
+
+viewGame : Model -> Svg Msg
+viewGame model =
     let
         ( w, h ) =
             wh model
@@ -35,9 +50,10 @@ view model =
         ([ viewTimer 180 posOne model model.playerOne
          , viewTimer 0 posTwo model model.playerTwo
          , viewResetButton (resetButtonPos model) model
+         , viewSettingsButton ( 9 * w / 10, h / 2 ) model
          ]
             ++ (case model.mode of
-                    GameOver _ ->
+                    Stopped reason ->
                         []
 
                     _ ->
@@ -63,14 +79,6 @@ resetButtonPos model =
         ( dpX, dpY )
     else
         model.resetButtonPos
-
-
-
--- let
---     dx =
---         Touch.deltaX model.resetGesture
--- in
--- ( dpX + Maybe.withDefault 0 dx, dpY )
 
 
 viewChallenge : Maybe a -> Svg msg
@@ -102,10 +110,15 @@ viewTimer rot pos model timer =
     let
         isActive =
             case model.mode of
-                GameOver _ ->
-                    False
+                Stopped mode ->
+                    case mode of
+                        Pause ->
+                            True
 
-                _ ->
+                        _ ->
+                            False
+
+                Tick ->
                     timer.player == model.player || model.player == None
     in
     g
@@ -122,6 +135,7 @@ viewTimer rot pos model timer =
             , dominantBaseline "middle"
             , stroke "black"
             , strokeWidth "2"
+            , class "timer-text"
             , opacity
                 (if isActive then
                     "1"
@@ -143,18 +157,6 @@ viewTimer rot pos model timer =
         ]
 
 
-timeToString : Time -> String
-timeToString time =
-    let
-        s =
-            Time.format "%M:%S" (abs time)
-    in
-    if time < 0 then
-        "-" ++ s
-    else
-        s
-
-
 tapRect : Bool -> ( Float, Float ) -> Model -> Player -> Svg Msg
 tapRect isActive ( posX, posY ) model player =
     let
@@ -163,11 +165,16 @@ tapRect isActive ( posX, posY ) model player =
 
         backgroundColor =
             case model.mode of
-                GameOver loser ->
-                    if loser == player then
-                        "red"
-                    else
-                        "green"
+                Stopped stopMode ->
+                    case stopMode of
+                        GameOver loser ->
+                            if loser == player then
+                                "red"
+                            else
+                                "green"
+
+                        _ ->
+                            "transparent"
 
                 _ ->
                     "transparent"
@@ -198,6 +205,27 @@ tapRect isActive ( posX, posY ) model player =
 
 
 -- pause button
+
+
+viewSettingsButton : ( Float, Float ) -> Model -> Svg Msg
+viewSettingsButton pos model =
+    let
+        ( w, h ) =
+            ( 36, 36 )
+    in
+    g
+        [ transform <| translate pos
+        ]
+        [ Svg.image
+            [ x <| toString (-w / 2)
+            , y <| toString (-h / 2)
+            , width <| toString w
+            , height <| toString h
+            , xlinkHref "img/settings.svg"
+            , Touch.onEnd ShowSettings
+            ]
+            []
+        ]
 
 
 viewResetButton : ( Float, Float ) -> Model -> Svg Msg
@@ -232,7 +260,7 @@ viewButton model =
     g
         [ transform <| translate ( toFloat model.size.width / 2, toFloat model.size.height / 2 )
         ]
-        [ pause (model.mode == Stopped)
+        [ pause (model.mode == Stopped Pause)
             model.config.challenge
             (Maybe.withDefault 0 <| model.challenge)
         , rect
@@ -298,8 +326,3 @@ bar stopped secsPerc ( posX, posY ) ( w, h ) =
             ]
             []
         ]
-
-
-translate : ( a, b ) -> String
-translate ( posX, posY ) =
-    "translate(" ++ toString posX ++ "," ++ toString posY ++ ")"
