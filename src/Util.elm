@@ -5,6 +5,10 @@ import Time.Format as Time
 import Types exposing (..)
 
 
+type alias Pos =
+    ( Float, Float )
+
+
 wh : Model -> ( Float, Float )
 wh model =
     ( toFloat model.size.width

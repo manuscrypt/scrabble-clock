@@ -2,11 +2,13 @@ module Main exposing (..)
 
 import Html exposing (Html, div, text)
 import Ports exposing (playAudio)
+import Svg exposing (Svg)
 import Task
 import Time exposing (Time)
 import Touch
 import Types exposing (..)
-import View exposing (resetButtonPos, view)
+import View.Game as Game
+import View.Settings as Settings
 import Window exposing (Size)
 
 
@@ -52,6 +54,21 @@ subscriptions model =
         Time.every Time.second TickSecond
     else
         Sub.none
+
+
+view : Model -> Svg Msg
+view model =
+    case model.mode of
+        Stopped stoppedMode ->
+            case stoppedMode of
+                Settings ->
+                    Settings.view model
+
+                _ ->
+                    Game.view model
+
+        Tick ->
+            Game.view model
 
 
 
@@ -114,7 +131,7 @@ update msg model =
             )
 
         SaveSettings ->
-            { model | mode = Stopped Pause, player = None } ! []
+            { model | mode = Stopped Pause } ! []
 
         TickSecond t ->
             let

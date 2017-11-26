@@ -1,4 +1,4 @@
-module SettingsView exposing (..)
+module View.Settings exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
