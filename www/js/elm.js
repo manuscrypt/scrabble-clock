@@ -10485,8 +10485,7 @@ var _user$project$View$bar = F4(
 										_elm_lang$core$Basics$toString(_p4)),
 									_1: {
 										ctor: '::',
-										_0: _elm_lang$svg$Svg_Attributes$fill(
-											stopped ? 'red' : 'grey'),
+										_0: _elm_lang$svg$Svg_Attributes$fill('grey'),
 										_1: {
 											ctor: '::',
 											_0: _elm_lang$svg$Svg_Attributes$stroke('black'),
@@ -10521,7 +10520,7 @@ var _user$project$View$bar = F4(
 										_1: {
 											ctor: '::',
 											_0: _elm_lang$svg$Svg_Attributes$fill(
-												stopped ? 'none' : 'orange'),
+												stopped ? 'red' : 'orange'),
 											_1: {
 												ctor: '::',
 												_0: _elm_lang$svg$Svg_Attributes$stroke('none'),
@@ -11021,15 +11020,15 @@ var _user$project$View$viewGame = function (model) {
 				}
 			},
 			function () {
-				var _p20 = model.mode;
-				if (_p20.ctor === 'Stopped') {
+				var _p20 = model.challenge;
+				if (_p20.ctor === 'Nothing') {
 					return {ctor: '[]'};
 				} else {
-					return (!_elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None)) ? {
+					return {
 						ctor: '::',
 						_0: _user$project$View$viewButton(model),
 						_1: {ctor: '[]'}
-					} : {ctor: '[]'};
+					};
 				}
 			}()));
 };
@@ -11268,9 +11267,7 @@ var _user$project$Main$update = F2(
 								} else {
 									return _user$project$Types$Stopped(_user$project$Types$Pause);
 								}
-							}(),
-							challenge: _elm_lang$core$Maybe$Nothing,
-							player: _user$project$Types$None
+							}()
 						}),
 					{
 						ctor: '::',
@@ -11289,6 +11286,7 @@ var _user$project$Main$update = F2(
 						_1: {ctor: '[]'}
 					});
 			default:
+				var _p10 = _p0._0;
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
@@ -11296,18 +11294,23 @@ var _user$project$Main$update = F2(
 						{
 							player: function () {
 								var _p7 = model.player;
-								switch (_p7.ctor) {
-									case 'None':
-										return _elm_lang$core$Native_Utils.eq(_p0._0, _user$project$Types$PlayerOne) ? _user$project$Types$PlayerTwo : _user$project$Types$PlayerOne;
-									case 'PlayerOne':
-										return _user$project$Types$PlayerTwo;
-									default:
-										return _user$project$Types$PlayerOne;
+								if (_p7.ctor === 'None') {
+									return _elm_lang$core$Native_Utils.eq(_p10, _user$project$Types$PlayerOne) ? _user$project$Types$PlayerTwo : _user$project$Types$PlayerOne;
+								} else {
+									var _p8 = _p10;
+									switch (_p8.ctor) {
+										case 'None':
+											return _user$project$Types$None;
+										case 'PlayerOne':
+											return _user$project$Types$PlayerTwo;
+										default:
+											return _user$project$Types$PlayerOne;
+									}
 								}
 							}(),
 							mode: function () {
-								var _p8 = model.mode;
-								if (_p8.ctor === 'Stopped') {
+								var _p9 = model.mode;
+								if (_p9.ctor === 'Stopped') {
 									return _user$project$Types$Tick;
 								} else {
 									return model.mode;

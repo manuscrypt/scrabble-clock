@@ -181,8 +181,6 @@ update msg model =
 
                         Tick ->
                             Stopped Pause
-                , challenge = Nothing
-                , player = None
             }
                 ! [ if model.config.sound then
                         case model.mode of
@@ -205,11 +203,16 @@ update msg model =
                             else
                                 PlayerOne
 
-                        PlayerOne ->
-                            PlayerTwo
+                        _ ->
+                            case player of
+                                None ->
+                                    None
 
-                        PlayerTwo ->
-                            PlayerOne
+                                PlayerOne ->
+                                    PlayerTwo
+
+                                PlayerTwo ->
+                                    PlayerOne
                 , mode =
                     case model.mode of
                         Stopped _ ->

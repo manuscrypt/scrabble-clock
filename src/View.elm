@@ -52,16 +52,12 @@ viewGame model =
          , viewResetButton (resetButtonPos model) model
          , viewSettingsButton ( 9 * w / 10, h / 2 ) model
          ]
-            ++ (case model.mode of
-                    Stopped reason ->
+            ++ (case model.challenge of
+                    Nothing ->
                         []
 
-                    _ ->
-                        if model.player /= None then
-                            [ viewButton model
-                            ]
-                        else
-                            []
+                    Just c ->
+                        [ viewButton model ]
                )
         )
 
@@ -304,11 +300,7 @@ bar stopped secsPerc ( posX, posY ) ( w, h ) =
             , y <| toString (-h / 2)
             , width <| toString w
             , height <| toString h
-            , fill <|
-                if stopped then
-                    "red"
-                else
-                    "grey"
+            , fill "grey"
             , stroke "black"
             ]
             []
@@ -319,7 +311,7 @@ bar stopped secsPerc ( posX, posY ) ( w, h ) =
             , height <| toString (h * secsPerc)
             , fill <|
                 if stopped then
-                    "none"
+                    "red"
                 else
                     "orange"
             , stroke "none"
