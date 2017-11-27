@@ -1,25 +1,37 @@
 module Main exposing (..)
 
 import Html exposing (Html, div, text)
-import Ports exposing (playAudio)
+import Json.Decode
+import Json.Encode as JE
+import Ports exposing (playAudio, storeConfig)
 import Svg exposing (Svg)
 import Task
 import Time exposing (Time)
 import Touch
 import Types exposing (..)
 import View.Game as Game
-import View.Settings as Settings
+import View.Settings as Settings exposing (configDecoder, encodeConfig)
 import Window exposing (Size)
 
 
-main : Program Never Model Msg
+main : Program JE.Value Model Msg
 main =
-    Html.program
-        { init = reset defaultConfig
+    Html.programWithFlags
+        { init = initWithFlags
         , update = update
         , view = view
         , subscriptions = subscriptions
         }
+
+
+initWithFlags : JE.Value -> ( Model, Cmd Msg )
+initWithFlags val =
+    case Json.Decode.decodeValue configDecoder val of
+        Ok config ->
+            reset config
+
+        Err err ->
+            reset (Debug.log (toString err) defaultConfig)
 
 
 reset : TimerConfig -> ( Model, Cmd Msg )
@@ -107,6 +119,9 @@ update msg model =
         ShowSettings ev ->
             ( { model | mode = Stopped Settings }, Cmd.none )
 
+        SaveSettings ->
+            { model | mode = Stopped Pause } ! [ storeConfig <| encodeConfig model.config ]
+
         TimeSettingChanged sett ->
             case sett of
                 Duration t ->
@@ -129,9 +144,6 @@ update msg model =
               else
                 Cmd.none
             )
-
-        SaveSettings ->
-            { model | mode = Stopped Pause } ! []
 
         TickSecond t ->
             let

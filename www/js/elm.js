@@ -18574,6 +18574,11 @@ var _user$project$Ports$playAudio = _elm_lang$core$Native_Platform.outgoingPort(
 	function (v) {
 		return v;
 	});
+var _user$project$Ports$storeConfig = _elm_lang$core$Native_Platform.outgoingPort(
+	'storeConfig',
+	function (v) {
+		return v;
+	});
 
 var _zwilias$elm_touch_events$Touch$addToTrail = F2(
 	function (coordinate, _p0) {
@@ -19886,6 +19891,66 @@ var _user$project$View_Settings$view = function (model) {
 			}
 		});
 };
+var _user$project$View_Settings$configDecoder = _elm_lang$core$Json_Decode$oneOf(
+	{
+		ctor: '::',
+		_0: _elm_lang$core$Json_Decode$null(_user$project$Types$defaultConfig),
+		_1: {
+			ctor: '::',
+			_0: A5(
+				_elm_lang$core$Json_Decode$map4,
+				_user$project$Types$TimerConfig,
+				A2(_elm_lang$core$Json_Decode$field, 'duration', _elm_lang$core$Json_Decode$float),
+				A2(_elm_lang$core$Json_Decode$field, 'overtime', _elm_lang$core$Json_Decode$float),
+				A2(_elm_lang$core$Json_Decode$field, 'challenge', _elm_lang$core$Json_Decode$float),
+				A2(_elm_lang$core$Json_Decode$field, 'sound', _elm_lang$core$Json_Decode$bool)),
+			_1: {ctor: '[]'}
+		}
+	});
+var _user$project$View_Settings$encodeConfig = function (config) {
+	return _elm_lang$core$Json_Encode$object(
+		{
+			ctor: '::',
+			_0: A2(
+				F2(
+					function (v0, v1) {
+						return {ctor: '_Tuple2', _0: v0, _1: v1};
+					}),
+				'duration',
+				_elm_lang$core$Json_Encode$float(config.duration)),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					F2(
+						function (v0, v1) {
+							return {ctor: '_Tuple2', _0: v0, _1: v1};
+						}),
+					'overtime',
+					_elm_lang$core$Json_Encode$float(config.overtime)),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						F2(
+							function (v0, v1) {
+								return {ctor: '_Tuple2', _0: v0, _1: v1};
+							}),
+						'challenge',
+						_elm_lang$core$Json_Encode$float(config.challenge)),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							F2(
+								function (v0, v1) {
+									return {ctor: '_Tuple2', _0: v0, _1: v1};
+								}),
+							'sound',
+							_elm_lang$core$Json_Encode$bool(config.sound)),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		});
+};
 
 var _user$project$Main$getCoord = function (ev) {
 	return _zwilias$elm_touch_events$Touch$locate(ev);
@@ -19963,6 +20028,20 @@ var _user$project$Main$update = F2(
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
+			case 'SaveSettings':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{
+							mode: _user$project$Types$Stopped(_user$project$Types$Pause)
+						}),
+					{
+						ctor: '::',
+						_0: _user$project$Ports$storeConfig(
+							_user$project$View_Settings$encodeConfig(model.config)),
+						_1: {ctor: '[]'}
+					});
 			case 'TimeSettingChanged':
 				var _p3 = _p2._0;
 				switch (_p3.ctor) {
@@ -20022,15 +20101,6 @@ var _user$project$Main$update = F2(
 						{config: next}),
 					_1: next.sound ? _user$project$Ports$playAudio('snd/resume.mp3') : _elm_lang$core$Platform_Cmd$none
 				};
-			case 'SaveSettings':
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					_elm_lang$core$Native_Utils.update(
-						model,
-						{
-							mode: _user$project$Types$Stopped(_user$project$Types$Pause)
-						}),
-					{ctor: '[]'});
 			case 'TickSecond':
 				var nextChallenge = A2(
 					_elm_lang$core$Maybe$andThen,
@@ -20175,13 +20245,20 @@ var _user$project$Main$update = F2(
 				};
 		}
 	});
-var _user$project$Main$main = _elm_lang$html$Html$program(
-	{
-		init: _user$project$Main$reset(_user$project$Types$defaultConfig),
-		update: _user$project$Main$update,
-		view: _user$project$Main$view,
-		subscriptions: _user$project$Main$subscriptions
-	})();
+var _user$project$Main$initWithFlags = function (val) {
+	var _p13 = A2(_elm_lang$core$Json_Decode$decodeValue, _user$project$View_Settings$configDecoder, val);
+	if (_p13.ctor === 'Ok') {
+		return _user$project$Main$reset(_p13._0);
+	} else {
+		return _user$project$Main$reset(
+			A2(
+				_elm_lang$core$Debug$log,
+				_elm_lang$core$Basics$toString(_p13._0),
+				_user$project$Types$defaultConfig));
+	}
+};
+var _user$project$Main$main = _elm_lang$html$Html$programWithFlags(
+	{init: _user$project$Main$initWithFlags, update: _user$project$Main$update, view: _user$project$Main$view, subscriptions: _user$project$Main$subscriptions})(_elm_lang$core$Json_Decode$value);
 
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};

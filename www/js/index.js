@@ -5,10 +5,20 @@ var app = {
     },
 
     onDeviceReady: function() {
-      var elmApp = Elm.Main.embed(document.querySelector(".app"));
+      var config = localStorage.getItem("config");
+      if (config != null){
+        config = JSON.parse(config);
+      }
+      var elmApp = Elm.Main.embed(document.querySelector(".app"), config);
       var self = this;
       elmApp.ports.playAudio.subscribe(function (url){
         playAudio(getMediaURL(url));
+      });
+      elmApp.ports.storeConfig.subscribe(function (config){
+        console.log(config);
+        var json = JSON.stringify(config);
+        console.log(json);
+        localStorage.setItem("config",json);
       });
     },
 

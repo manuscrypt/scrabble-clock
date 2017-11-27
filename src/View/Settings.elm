@@ -3,9 +3,33 @@ module View.Settings exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Json.Decode as JD
+import Json.Encode as JE
 import Time
 import Types exposing (..)
 import Util exposing (..)
+
+
+encodeConfig : TimerConfig -> JE.Value
+encodeConfig config =
+    JE.object
+        [ (,) "duration" <| JE.float config.duration
+        , (,) "overtime" <| JE.float config.overtime
+        , (,) "challenge" <| JE.float config.challenge
+        , (,) "sound" <| JE.bool config.sound
+        ]
+
+
+configDecoder : JD.Decoder TimerConfig
+configDecoder =
+    JD.oneOf
+        [ JD.null defaultConfig
+        , JD.map4 TimerConfig
+            (JD.field "duration" JD.float)
+            (JD.field "overtime" JD.float)
+            (JD.field "challenge" JD.float)
+            (JD.field "sound" JD.bool)
+        ]
 
 
 durations : { b | config : { a | duration : Seconds } } -> List (Html Msg)
