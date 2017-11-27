@@ -93,12 +93,7 @@ timeLeft rot off time =
                     else
                         ""
                    )
-         , fontSize
-            (if off then
-                "18"
-             else
-                "12"
-            )
+         , fontSize "14"
          ]
             ++ (if rot then
                     [ transform "rotate(180)" ]

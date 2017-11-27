@@ -18907,8 +18907,7 @@ var _user$project$View_Countdown$timeLeft = F3(
 							off ? ' off' : '')),
 					_1: {
 						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$fontSize(
-							off ? '18' : '12'),
+						_0: _elm_lang$svg$Svg_Attributes$fontSize('14'),
 						_1: {ctor: '[]'}
 					}
 				},
@@ -19055,6 +19054,243 @@ var _user$project$View_Countdown$view = F3(
 				}
 			});
 	});
+
+var _user$project$View_PauseButton$bar = F4(
+	function (stopped, secsPerc, _p1, _p0) {
+		var _p2 = _p1;
+		var _p3 = _p0;
+		var _p5 = _p3._0;
+		var _p4 = _p3._1;
+		return A2(
+			_elm_lang$svg$Svg$g,
+			{
+				ctor: '::',
+				_0: _elm_lang$svg$Svg_Attributes$transform(
+					_user$project$Util$translate(
+						{ctor: '_Tuple2', _0: _p2._0, _1: _p2._1})),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$svg$Svg$rect,
+					{
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$x(
+							_elm_lang$core$Basics$toString((0 - _p5) / 2)),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$y(
+								_elm_lang$core$Basics$toString((0 - _p4) / 2)),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$width(
+									_elm_lang$core$Basics$toString(_p5)),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$height(
+										_elm_lang$core$Basics$toString(_p4)),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$fill('grey'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$stroke('black'),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$svg$Svg$rect,
+						{
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$x(
+								_elm_lang$core$Basics$toString((0 - _p5) / 2)),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$y(
+									_elm_lang$core$Basics$toString((0 - _p4) / 2)),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$width(
+										_elm_lang$core$Basics$toString(_p5)),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$height(
+											_elm_lang$core$Basics$toString(_p4 * secsPerc)),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$fill(
+												stopped ? 'red' : 'orange'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$svg$Svg_Attributes$stroke('none'),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}
+							}
+						},
+						{ctor: '[]'}),
+					_1: {ctor: '[]'}
+				}
+			});
+	});
+var _user$project$View_PauseButton$pause = F4(
+	function (_p6, stopped, challengeSecs, secsLeft) {
+		var _p7 = _p6;
+		var c2 = '#00CD00';
+		var c1 = '#434343';
+		var box = function (x) {
+			return _folkertdev$one_true_path_experiment$Curve$linear(
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: x, _1: -16},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: x, _1: 16},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: x + (16 / 3), _1: 16},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: x + (16 / 3), _1: -16},
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				});
+		};
+		var tri = _folkertdev$one_true_path_experiment$Curve$linear(
+			{
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: -16, _1: -16},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: -16, _1: 16},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 0, _1: 0},
+						_1: {ctor: '[]'}
+					}
+				}
+			});
+		return A2(
+			_elm_lang$svg$Svg$g,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_folkertdev$one_true_path_experiment$SubPath$element,
+					tri,
+					{
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$fill(
+							(!stopped) ? c2 : c1),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_folkertdev$one_true_path_experiment$SubPath$element,
+						box(0),
+						{
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$fill(
+								stopped ? c2 : c1),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_folkertdev$one_true_path_experiment$SubPath$element,
+							box((2 * 16) / 3),
+							{
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$fill(
+									stopped ? c2 : c1),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}
+			});
+	});
+var _user$project$View_PauseButton$view = function (model) {
+	var _p8 = {ctor: '_Tuple2', _0: 32, _1: 32};
+	var w = _p8._0;
+	var h = _p8._1;
+	return A2(
+		_elm_lang$svg$Svg$g,
+		{
+			ctor: '::',
+			_0: _elm_lang$svg$Svg_Attributes$transform(
+				_user$project$Util$translate(
+					{
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Basics$toFloat(model.size.width) / 2,
+						_1: _elm_lang$core$Basics$toFloat(model.size.height) / 2
+					})),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A4(
+				_user$project$View_PauseButton$pause,
+				{ctor: '_Tuple2', _0: w, _1: h},
+				_elm_lang$core$Native_Utils.eq(
+					model.mode,
+					_user$project$Types$Stopped(_user$project$Types$Pause)),
+				model.config.challenge,
+				A2(_elm_lang$core$Maybe$withDefault, 0, model.challenge)),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$svg$Svg$rect,
+					{
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$x(
+							_elm_lang$core$Basics$toString((0 - w) / 2)),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$y(
+								_elm_lang$core$Basics$toString((0 - h) / 2)),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$width(
+									_elm_lang$core$Basics$toString(w)),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$height(
+										_elm_lang$core$Basics$toString(h)),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$fill('transparent'),
+										_1: {
+											ctor: '::',
+											_0: _zwilias$elm_touch_events$Touch$onStart(
+												function (event) {
+													return _user$project$Types$Toggle;
+												}),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
 
 var _user$project$View_ResetButton$resetButtonPos = function (model) {
 	var _p0 = _user$project$Util$wh(model);
@@ -19342,8 +19578,8 @@ var _user$project$View_Game$view = function (model) {
 	var _p1 = _user$project$Util$wh(model);
 	var w = _p1._0;
 	var h = _p1._1;
-	var posOne = {ctor: '_Tuple2', _0: w / 2, _1: h / 4};
-	var posTwo = {ctor: '_Tuple2', _0: w / 2, _1: (3 * h) / 4};
+	var posOne = {ctor: '_Tuple2', _0: w / 2, _1: h / 6};
+	var posTwo = {ctor: '_Tuple2', _0: w / 2, _1: (5 * h) / 6};
 	return A2(
 		_elm_lang$svg$Svg$svg,
 		{
@@ -19386,7 +19622,11 @@ var _user$project$View_Game$view = function (model) {
 			function () {
 				var _p2 = model.challenge;
 				if (_p2.ctor === 'Nothing') {
-					return {ctor: '[]'};
+					return _elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None) ? {ctor: '[]'} : {
+						ctor: '::',
+						_0: _user$project$View_PauseButton$view(model),
+						_1: {ctor: '[]'}
+					};
 				} else {
 					var rot = _elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$PlayerOne);
 					return {

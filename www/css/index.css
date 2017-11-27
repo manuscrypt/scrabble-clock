@@ -128,10 +128,10 @@ h1 {
 }
 
 .pie {
-  fill: grey;
+  fill: #434343;
 }
 .pie-passed {
-  fill: red;
+  fill: #00CD00;
 }
 .outer {
   fill: #E4E4E4;
@@ -150,8 +150,7 @@ h1 {
   fill: grey;
 }
 .time-left.off {
-  fill: red;
-  stroke: white;
+  fill: #434343;
 }
 
 .inner.off {

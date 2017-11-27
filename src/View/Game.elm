@@ -6,6 +6,7 @@ import Touch
 import Types exposing (..)
 import Util exposing (..)
 import View.Countdown as Countdown
+import View.PauseButton as PauseButton
 import View.ResetButton as ResetButton
 import View.Timer as Timer
 
@@ -17,10 +18,10 @@ view model =
             wh model
 
         posOne =
-            ( w / 2, h / 4 )
+            ( w / 2, h / 6 )
 
         posTwo =
-            ( w / 2, 3 * h / 4 )
+            ( w / 2, 5 * h / 6 )
     in
     svg [ viewBox <| "0 0 " ++ toString w ++ " " ++ toString h ]
         ([ Timer.view 180 posOne model model.playerOne
@@ -30,7 +31,10 @@ view model =
          ]
             ++ (case model.challenge of
                     Nothing ->
-                        []
+                        if model.player == None then
+                            []
+                        else
+                            [ PauseButton.view model ]
 
                     Just c ->
                         let

@@ -1,5 +1,7 @@
-module View.Challenge exposing (..)
+module View.PauseButton exposing (..)
 
+import Curve
+import SubPath
 import Svg exposing (Svg, g, path, rect, svg, text, text_)
 import Svg.Attributes exposing (..)
 import Touch
@@ -11,12 +13,13 @@ view : Model -> Svg Msg
 view model =
     let
         ( w, h ) =
-            ( 66, 60 )
+            ( 32, 32 )
     in
     g
         [ transform <| translate ( toFloat model.size.width / 2, toFloat model.size.height / 2 )
         ]
-        [ pause (model.mode == Stopped Pause)
+        [ pause ( w, h )
+            (model.mode == Stopped Pause)
             model.config.challenge
             (Maybe.withDefault 0 <| model.challenge)
         , rect
@@ -31,24 +34,43 @@ view model =
         ]
 
 
-pause : Bool -> Float -> Float -> Svg Msg
-pause stopped challengeSecs secsLeft =
+pause : ( Float, Float ) -> Bool -> Float -> Float -> Svg Msg
+pause ( w, h ) stopped challengeSecs secsLeft =
     let
-        half =
-            challengeSecs / 2
+        tri =
+            Curve.linear [ ( -16, -16 ), ( -16, 16 ), ( 0, 0 ) ]
+
+        box x =
+            Curve.linear [ ( x, -16 ), ( x, 16 ), ( x + 16 / 3, 16 ), ( x + 16 / 3, -16 ) ]
 
         c1 =
-            Basics.min half secsLeft / half
+            "#434343"
 
         c2 =
-            if c1 >= 1 then
-                (secsLeft - half) / half
-            else
-                0
+            "#00CD00"
     in
     g []
-        [ bar stopped c1 ( -20, 0 ) ( 26, 60 )
-        , bar stopped c2 ( 20, 0 ) ( 26, 60 )
+        [ SubPath.element tri
+            [ fill <|
+                if not stopped then
+                    c2
+                else
+                    c1
+            ]
+        , SubPath.element (box 0)
+            [ fill <|
+                if stopped then
+                    c2
+                else
+                    c1
+            ]
+        , SubPath.element (box (2 * 16 / 3))
+            [ fill <|
+                if stopped then
+                    c2
+                else
+                    c1
+            ]
         ]
 
 
