@@ -34,7 +34,7 @@ configDecoder =
 
 durations : { b | config : { a | duration : Seconds } } -> List (Html Msg)
 durations model =
-    [ 30, 25, 20 ]
+    [ 30, 25, 20, 1 / 12 ]
         |> List.map ((*) 60)
         |> List.map secs
         |> List.map (\s -> timeButton s model.config.duration Duration)
@@ -42,7 +42,7 @@ durations model =
 
 overtimes : { b | config : { a | overtime : Seconds } } -> List (Html Msg)
 overtimes model =
-    [ 15, 10, 5 ]
+    [ 15, 10, 5, 1 / 12 ]
         |> List.map ((*) 60)
         |> List.map secs
         |> List.map (\s -> timeButton s model.config.overtime Overtime)
@@ -50,7 +50,7 @@ overtimes model =
 
 challenges : { b | config : { a | challenge : Seconds } } -> List (Html Msg)
 challenges model =
-    [ 25, 20, 15 ]
+    [ 25, 20, 15, 3 ]
         |> List.map secs
         |> List.map (\s -> timeButton s model.config.challenge Challenge)
 

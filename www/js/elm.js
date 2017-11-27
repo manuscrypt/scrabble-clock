@@ -19627,11 +19627,13 @@ var _user$project$View_Game$view = function (model) {
 			function () {
 				var _p2 = model.challenge;
 				if (_p2.ctor === 'Nothing') {
-					return _elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None) ? {ctor: '[]'} : {
+					return ((!_elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$None)) && (_elm_lang$core$Native_Utils.eq(model.mode, _user$project$Types$Tick) || _elm_lang$core$Native_Utils.eq(
+						model.mode,
+						_user$project$Types$Stopped(_user$project$Types$Pause)))) ? {
 						ctor: '::',
 						_0: _user$project$View_PauseButton$view(model),
 						_1: {ctor: '[]'}
-					};
+					} : {ctor: '[]'};
 				} else {
 					var rot = _elm_lang$core$Native_Utils.eq(model.player, _user$project$Types$PlayerOne);
 					return {
@@ -19697,7 +19699,11 @@ var _user$project$View_Settings$challenges = function (model) {
 					_1: {
 						ctor: '::',
 						_0: 15,
-						_1: {ctor: '[]'}
+						_1: {
+							ctor: '::',
+							_0: 3,
+							_1: {ctor: '[]'}
+						}
 					}
 				}
 			}));
@@ -19726,7 +19732,11 @@ var _user$project$View_Settings$overtimes = function (model) {
 						_1: {
 							ctor: '::',
 							_0: 5,
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: 1 / 12,
+								_1: {ctor: '[]'}
+							}
 						}
 					}
 				})));
@@ -19755,7 +19765,11 @@ var _user$project$View_Settings$durations = function (model) {
 						_1: {
 							ctor: '::',
 							_0: 20,
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: 1 / 12,
+								_1: {ctor: '[]'}
+							}
 						}
 					}
 				})));

@@ -31,10 +31,10 @@ view model =
          ]
             ++ (case model.challenge of
                     Nothing ->
-                        if model.player == None then
-                            []
-                        else
+                        if model.player /= None && (model.mode == Tick || model.mode == Stopped Pause) then
                             [ PauseButton.view model ]
+                        else
+                            []
 
                     Just c ->
                         let
