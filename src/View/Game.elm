@@ -55,13 +55,17 @@ viewSettingsButton pos model =
     g
         [ transform <| translate pos
         ]
-        [ Svg.image
-            [ x <| toString (-w / 2)
-            , y <| toString (-h / 2)
-            , width <| toString w
-            , height <| toString h
-            , xlinkHref "img/settings.svg"
-            , Touch.onEnd ShowSettings
+        (if model.mode /= Tick then
+            [ Svg.image
+                [ x <| toString (-w / 2)
+                , y <| toString (-h / 2)
+                , width <| toString w
+                , height <| toString h
+                , xlinkHref "img/settings.svg"
+                , Touch.onEnd ShowSettings
+                ]
+                []
             ]
+         else
             []
-        ]
+        )

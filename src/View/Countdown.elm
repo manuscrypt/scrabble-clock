@@ -62,7 +62,7 @@ view rot remaining model =
             Curve.radial ( 0, 0 ) <| List.map (\i -> ( toFloat i, 30 )) <| List.range 0 360
     in
     g
-        [ transform <| Util.translate ( toFloat model.size.width / 2, toFloat model.size.height / 2 )
+        [ transform <| Util.translate ( toFloat model.size.width / 2, toFloat model.size.height / 2 ) ++ " scale(1.5)"
         , Touch.onStart (\event -> Toggle)
         ]
         [ --SubPath.element outer [ class "outer" ]

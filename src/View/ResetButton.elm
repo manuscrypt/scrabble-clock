@@ -19,18 +19,22 @@ view model =
     g
         [ transform <| translate pos
         ]
-        [ Svg.image
-            [ x <| toString (-w / 2)
-            , y <| toString (-h / 2)
-            , width <| toString w
-            , height <| toString h
-            , xlinkHref "img/restart.svg"
-            , Touch.onStart ResetSwipe
-            , Touch.onMove ResetSwipe
-            , Touch.onEnd ResetSwipeEnd
+        (if model.mode /= Tick then
+            [ Svg.image
+                [ x <| toString (-w / 2)
+                , y <| toString (-h / 2)
+                , width <| toString w
+                , height <| toString h
+                , xlinkHref "img/restart.svg"
+                , Touch.onStart ResetSwipe
+                , Touch.onMove ResetSwipe
+                , Touch.onEnd ResetSwipeEnd
+                ]
+                []
             ]
+         else
             []
-        ]
+        )
 
 
 resetButtonPos : Model -> ( Float, Float )

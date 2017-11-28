@@ -21313,12 +21313,15 @@ var _user$project$View_Countdown$view = F3(
 			{
 				ctor: '::',
 				_0: _elm_lang$svg$Svg_Attributes$transform(
-					_user$project$Util$translate(
-						{
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Basics$toFloat(model.size.width) / 2,
-							_1: _elm_lang$core$Basics$toFloat(model.size.height) / 2
-						})),
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						_user$project$Util$translate(
+							{
+								ctor: '_Tuple2',
+								_0: _elm_lang$core$Basics$toFloat(model.size.width) / 2,
+								_1: _elm_lang$core$Basics$toFloat(model.size.height) / 2
+							}),
+						' scale(1.5)')),
 				_1: {
 					ctor: '::',
 					_0: _zwilias$elm_touch_events$Touch$onStart(
@@ -21639,7 +21642,7 @@ var _user$project$View_ResetButton$view = function (model) {
 				_user$project$Util$translate(pos)),
 			_1: {ctor: '[]'}
 		},
-		{
+		(!_elm_lang$core$Native_Utils.eq(model.mode, _user$project$Types$Tick)) ? {
 			ctor: '::',
 			_0: A2(
 				_elm_lang$svg$Svg$image,
@@ -21682,7 +21685,7 @@ var _user$project$View_ResetButton$view = function (model) {
 				},
 				{ctor: '[]'}),
 			_1: {ctor: '[]'}
-		});
+		} : {ctor: '[]'});
 };
 
 var _user$project$View_Timer$tapRect = F4(
@@ -21862,7 +21865,7 @@ var _user$project$View_Game$viewSettingsButton = F2(
 					_user$project$Util$translate(pos)),
 				_1: {ctor: '[]'}
 			},
-			{
+			(!_elm_lang$core$Native_Utils.eq(model.mode, _user$project$Types$Tick)) ? {
 				ctor: '::',
 				_0: A2(
 					_elm_lang$svg$Svg$image,
@@ -21897,7 +21900,7 @@ var _user$project$View_Game$viewSettingsButton = F2(
 					},
 					{ctor: '[]'}),
 				_1: {ctor: '[]'}
-			});
+			} : {ctor: '[]'});
 	});
 var _user$project$View_Game$view = function (model) {
 	var _p1 = _user$project$Util$wh(model);
