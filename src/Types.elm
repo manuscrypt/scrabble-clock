@@ -1,16 +1,9 @@
 module Types exposing (..)
 
+import Data exposing (Seconds, TimerConfig)
 import Time exposing (Time)
 import Touch
 import Window exposing (Size)
-
-
-type alias TimerConfig =
-    { duration : Seconds
-    , overtime : Seconds
-    , challenge : Seconds
-    , sound : Bool
-    }
 
 
 type StoppedMode
@@ -71,30 +64,3 @@ type Msg
     | TimeSettingChanged TimeSetting
     | SoundSettingChanged
     | SaveSettings
-
-
-type alias Seconds =
-    Float
-
-
-minutes : Float -> Float
-minutes =
-    (*) 60 << (*) Time.second
-
-
-defaultConfig : TimerConfig
-defaultConfig =
-    { duration = minutes 25
-    , overtime = minutes 10
-    , challenge = 20 * Time.second
-    , sound = True
-    }
-
-
-overtimeConfig : TimerConfig
-overtimeConfig =
-    { duration = 1 * Time.second
-    , overtime = 2 * Time.second
-    , challenge = 2 * Time.second
-    , sound = True
-    }

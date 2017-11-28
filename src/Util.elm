@@ -2,14 +2,14 @@ module Util exposing (..)
 
 import Time exposing (Time)
 import Time.Format as Time
-import Types exposing (..)
+import Window exposing (Size)
 
 
 type alias Pos =
     ( Float, Float )
 
 
-wh : Model -> ( Float, Float )
+wh : { a | size : Size } -> ( Float, Float )
 wh model =
     ( toFloat model.size.width
     , toFloat model.size.height
@@ -31,3 +31,13 @@ timeToString time =
 translate : ( a, b ) -> String
 translate ( posX, posY ) =
     "translate(" ++ toString posX ++ "," ++ toString posY ++ ")"
+
+
+minutes : Float -> Float
+minutes =
+    (*) 60 << (*) Time.second
+
+
+secs : Float -> Float
+secs x =
+    Time.second * x

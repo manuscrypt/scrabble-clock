@@ -1,5 +1,6 @@
 module Main exposing (..)
 
+import Data exposing (..)
 import Html exposing (Html, div, text)
 import Json.Decode
 import Json.Encode as JE
@@ -10,7 +11,7 @@ import Time exposing (Time)
 import Touch
 import Types exposing (..)
 import View.Game as Game
-import View.Settings as Settings exposing (configDecoder, encodeConfig)
+import View.Settings as Settings
 import Window exposing (Size)
 
 
@@ -26,7 +27,7 @@ main =
 
 initWithFlags : JE.Value -> ( Model, Cmd Msg )
 initWithFlags val =
-    case Json.Decode.decodeValue configDecoder val of
+    case Json.Decode.decodeValue Data.configDecoder val of
         Ok config ->
             reset config
 
@@ -120,7 +121,7 @@ update msg model =
             ( { model | mode = Stopped Settings }, Cmd.none )
 
         SaveSettings ->
-            { model | mode = Stopped Pause } ! [ storeConfig <| encodeConfig model.config ]
+            { model | mode = Stopped Pause } ! [ storeConfig <| Data.encodeConfig model.config ]
 
         TimeSettingChanged sett ->
             case sett of

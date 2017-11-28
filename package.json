@@ -14,6 +14,7 @@
     "author": "Manuel Baumann",
     "license": "MIT",
     "dependencies": {
+        "bootstrap": "^3.3.7",
         "cordova-android": "^6.2.3",
         "cordova-browser": "^5.0.1",
         "cordova-ios": "^4.4.0",
