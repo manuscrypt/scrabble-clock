@@ -114,9 +114,7 @@ h1 {
 }
 
 .settings {
-  width: 80%;
-  margin: auto;
-  margin-top: 20px;
+  padding: 70px;
 }
 
 .timer-text {

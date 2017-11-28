@@ -5,6 +5,7 @@ var app = {
     },
 
     onDeviceReady: function() {
+      screen.orientation.lock('portrait');
       var config = localStorage.getItem("config");
       if (config != null){
         config = JSON.parse(config);

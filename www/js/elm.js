@@ -22140,10 +22140,10 @@ var _user$project$View_Settings$soundCheck = function (model) {
 			},
 			{
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'An', _1: true},
+				_0: {ctor: '_Tuple2', _0: 'On', _1: true},
 				_1: {
 					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'Aus', _1: false},
+					_0: {ctor: '_Tuple2', _0: 'Off', _1: false},
 					_1: {ctor: '[]'}
 				}
 			}));
@@ -22202,7 +22202,7 @@ var _user$project$View_Settings$saveButton = A2(
 	},
 	{
 		ctor: '::',
-		_0: _elm_lang$html$Html$text('Speichern'),
+		_0: _elm_lang$html$Html$text('Save and return'),
 		_1: {ctor: '[]'}
 	});
 var _user$project$View_Settings$view = function (model) {
@@ -22225,32 +22225,32 @@ var _user$project$View_Settings$view = function (model) {
 						{ctor: '[]'},
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html$text('Einstellungen'),
+							_0: _elm_lang$html$Html$text('Settings'),
 							_1: {ctor: '[]'}
 						}),
 					_1: {
 						ctor: '::',
 						_0: A2(
 							_user$project$View_Settings$formRow,
-							'Spielzeit pro Spieler',
+							'Play time',
 							_user$project$View_Settings$durations(model)),
 						_1: {
 							ctor: '::',
 							_0: A2(
 								_user$project$View_Settings$formRow,
-								'Maximale Überzeit',
+								'Overtime',
 								_user$project$View_Settings$overtimes(model)),
 							_1: {
 								ctor: '::',
 								_0: A2(
 									_user$project$View_Settings$formRow,
-									'Zeit zum Anzweifeln',
+									'Challenge time',
 									_user$project$View_Settings$challenges(model)),
 								_1: {
 									ctor: '::',
 									_0: A2(
 										_user$project$View_Settings$formRow,
-										'Audio-Effekte',
+										'Audio effects',
 										_user$project$View_Settings$soundCheck(model)),
 									_1: {
 										ctor: '::',

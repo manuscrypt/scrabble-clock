@@ -17,11 +17,11 @@ view : Model -> Html Msg
 view model =
     Grid.containerFluid [ class "settings" ]
         [ Form.form []
-            [ h4 [] [ text "Einstellungen" ]
-            , formRow "Spielzeit pro Spieler" <| durations model
-            , formRow "Maximale Überzeit" <| overtimes model
-            , formRow "Zeit zum Anzweifeln" <| challenges model
-            , formRow "Audio-Effekte" <| soundCheck model
+            [ h4 [] [ text "Settings" ]
+            , formRow "Play time" <| durations model
+            , formRow "Overtime" <| overtimes model
+            , formRow "Challenge time" <| challenges model
+            , formRow "Audio effects" <| soundCheck model
             , hr [] []
             , Form.row []
                 [ Form.col [ Col.sm4 ] [ text " " ]
@@ -38,7 +38,7 @@ saveButton =
         , Button.small
         , Button.secondary
         ]
-        [ text "Speichern" ]
+        [ text "Save and return" ]
 
 
 formRow : String -> Html msg -> Html msg
@@ -51,7 +51,7 @@ formRow label content =
 
 soundCheck : { b | config : { a | sound : Bool } } -> Html Msg
 soundCheck model =
-    [ ( "An", True ), ( "Aus", False ) ]
+    [ ( "On", True ), ( "Off", False ) ]
         |> List.map
             (\( txt, b ) ->
                 ButtonGroup.radioButton (b == model.config.sound)
