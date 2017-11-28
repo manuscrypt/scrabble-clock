@@ -5,6 +5,7 @@ import Bootstrap.ButtonGroup as ButtonGroup
 import Bootstrap.Form as Form
 import Bootstrap.Grid as Grid
 import Bootstrap.Grid.Col as Col exposing (topLg)
+import ColorPicker
 import Data exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (class)
@@ -17,18 +18,20 @@ view : Model -> Html Msg
 view model =
     Grid.containerFluid [ class "settings" ]
         [ Form.form []
-            [ h4 [] [ text "Settings" ]
-            , formRow "Play time" <| durations model
+            [ formRow "Play time" <| durations model
             , formRow "Overtime" <| overtimes model
             , formRow "Challenge time" <| challenges model
+            , formRow "Accent Color" <| textColor model
             , formRow "Audio effects" <| soundCheck model
-            , hr [] []
-            , Form.row []
-                [ Form.col [ Col.sm4 ] [ text " " ]
-                , Form.col [ Col.sm2 ] [ saveButton ]
-                ]
+            , formRow " " <| saveButton
             ]
         ]
+
+
+textColor : Model -> Html Msg
+textColor model =
+    ColorPicker.view model.config.textColor model.colorPicker
+        |> Html.map ColorPickerMsg
 
 
 saveButton : Html Msg
@@ -44,7 +47,7 @@ saveButton =
 formRow : String -> Html msg -> Html msg
 formRow label content =
     Form.row []
-        [ Form.colLabel [ Col.sm2 ] [ text label ]
+        [ Form.colLabel [ Col.sm2 ] [ h6 [] [ text label ] ]
         , Form.col [ Col.sm10 ] [ content ]
         ]
 
@@ -70,21 +73,21 @@ soundCheck model =
 
 durations : { b | config : { a | duration : Seconds } } -> Html Msg
 durations model =
-    [ 30, 25, 20, 1 / 12 ]
+    [ 30, 25, 20 ]
         |> List.map minutes
         |> myRadioButtonGroup Duration model.config.duration
 
 
 overtimes : { b | config : { a | overtime : Seconds } } -> Html Msg
 overtimes model =
-    [ 15, 10, 5, 1 / 12 ]
+    [ 15, 10, 5 ]
         |> List.map minutes
         |> myRadioButtonGroup Overtime model.config.overtime
 
 
 challenges : { b | config : { a | challenge : Seconds } } -> Html Msg
 challenges model =
-    [ 25, 20, 15, 3 ]
+    [ 25, 20, 15 ]
         |> List.map secs
         |> myRadioButtonGroup Challenge model.config.challenge
 

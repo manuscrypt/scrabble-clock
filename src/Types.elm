@@ -1,5 +1,7 @@
 module Types exposing (..)
 
+import Color exposing (Color)
+import ColorPicker
 import Data exposing (Seconds, TimerConfig)
 import Time exposing (Time)
 import Touch
@@ -39,6 +41,7 @@ type alias Model =
     , challenge : Maybe Time
     , resetGesture : Touch.Gesture
     , resetButtonPos : ( Float, Float )
+    , colorPicker : ColorPicker.State
     }
 
 
@@ -64,3 +67,4 @@ type Msg
     | TimeSettingChanged TimeSetting
     | SoundSettingChanged
     | SaveSettings
+    | ColorPickerMsg ColorPicker.Msg

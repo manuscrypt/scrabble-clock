@@ -67,7 +67,7 @@ view rot remaining model =
         ]
         [ --SubPath.element outer [ class "outer" ]
           SubPath.element sub [ class "pie" ]
-        , SubPath.element sub2 [ class "pie-passed" ]
+        , SubPath.element sub2 [ fill <| Util.toRgbaString model.config.textColor ]
 
         --, SubPath.element (Curve.linear [ ( 0, 0 ), ( 0, 1 ) ]) [ stroke "black" ]
         , SubPath.element inner

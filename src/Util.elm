@@ -1,5 +1,6 @@
 module Util exposing (..)
 
+import Color exposing (toRgb)
 import Time exposing (Time)
 import Time.Format as Time
 import Window exposing (Size)
@@ -41,3 +42,12 @@ minutes =
 secs : Float -> Float
 secs x =
     Time.second * x
+
+
+toRgbaString : Color.Color -> String
+toRgbaString color =
+    let
+        { red, green, blue, alpha } =
+            toRgb color
+    in
+    "rgba(" ++ toString red ++ "," ++ toString green ++ "," ++ toString blue ++ "," ++ toString alpha ++ ")"

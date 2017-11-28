@@ -1,5 +1,6 @@
 module View.Timer exposing (..)
 
+import Color exposing (toRgb)
 import Svg exposing (Svg, g, path, rect, svg, text, text_)
 import Svg.Attributes exposing (..)
 import Touch
@@ -37,18 +38,12 @@ view rot pos model timer =
             , dominantBaseline "middle"
             , stroke "black"
             , strokeWidth "2"
-            , class "timer-text"
+            , fill <| toRgbaString model.config.textColor
             , opacity
                 (if isActive then
                     "1"
                  else
                     "0.5"
-                )
-            , fill
-                (if isActive then
-                    "black"
-                 else
-                    "grey"
                 )
             ]
             [ text <| timeToString timer.time ]

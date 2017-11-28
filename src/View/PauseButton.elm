@@ -47,7 +47,7 @@ pause ( w, h ) stopped challengeSecs secsLeft =
             "#434343"
 
         c2 =
-            "#00CD00"
+            "#006600"
     in
     g []
         [ SubPath.element tri

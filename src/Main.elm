@@ -1,5 +1,6 @@
 module Main exposing (..)
 
+import ColorPicker
 import Data exposing (..)
 import Html exposing (Html, div, text)
 import Json.Decode
@@ -56,6 +57,7 @@ init config =
       , challenge = Nothing
       , resetGesture = Touch.blanco
       , resetButtonPos = ( 0, 0 )
+      , colorPicker = ColorPicker.empty
       }
     , Task.perform SizeChanged Window.size
     )
@@ -133,6 +135,17 @@ update msg model =
 
                 Challenge t ->
                     ( { model | config = (\c -> { c | challenge = t }) model.config }, Cmd.none )
+
+        ColorPickerMsg msg ->
+            let
+                ( m, color ) =
+                    ColorPicker.update msg model.config.textColor model.colorPicker
+            in
+            { model
+                | colorPicker = m
+                , config = (\c -> { c | textColor = color |> Maybe.withDefault c.textColor }) model.config
+            }
+                ! []
 
         SoundSettingChanged ->
             let
