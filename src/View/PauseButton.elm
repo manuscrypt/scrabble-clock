@@ -1,5 +1,6 @@
 module View.PauseButton exposing (..)
 
+import Color exposing (Color)
 import Curve
 import SubPath
 import Svg exposing (Svg, g, path, rect, svg, text, text_)
@@ -19,6 +20,7 @@ view model =
         [ transform <| translate ( toFloat model.size.width / 2, toFloat model.size.height / 2 )
         ]
         [ pause ( w, h )
+            model.config.textColor
             (model.mode == Stopped Pause)
             model.config.challenge
             (Maybe.withDefault 0 <| model.challenge)
@@ -34,8 +36,8 @@ view model =
         ]
 
 
-pause : ( Float, Float ) -> Bool -> Float -> Float -> Svg Msg
-pause ( w, h ) stopped challengeSecs secsLeft =
+pause : ( Float, Float ) -> Color -> Bool -> Float -> Float -> Svg Msg
+pause ( w, h ) color stopped challengeSecs secsLeft =
     let
         tri =
             Curve.linear [ ( -16, -16 ), ( -16, 16 ), ( 0, 0 ) ]
@@ -47,7 +49,7 @@ pause ( w, h ) stopped challengeSecs secsLeft =
             "#434343"
 
         c2 =
-            "#006600"
+            Util.toRgbaString color
     in
     g []
         [ SubPath.element tri
@@ -71,32 +73,4 @@ pause ( w, h ) stopped challengeSecs secsLeft =
                 else
                     c1
             ]
-        ]
-
-
-bar : Bool -> Float -> ( Float, Float ) -> ( Float, Float ) -> Svg Msg
-bar stopped secsPerc ( posX, posY ) ( w, h ) =
-    g [ transform <| translate ( posX, posY ) ]
-        [ rect
-            [ x <| toString (-w / 2)
-            , y <| toString (-h / 2)
-            , width <| toString w
-            , height <| toString h
-            , fill "grey"
-            , stroke "black"
-            ]
-            []
-        , rect
-            [ x <| toString (-w / 2)
-            , y <| toString (-h / 2)
-            , width <| toString w
-            , height <| toString (h * secsPerc)
-            , fill <|
-                if stopped then
-                    "red"
-                else
-                    "orange"
-            , stroke "none"
-            ]
-            []
         ]

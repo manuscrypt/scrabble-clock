@@ -22771,98 +22771,10 @@ var _user$project$View_Countdown$view = F3(
 			});
 	});
 
-var _user$project$View_PauseButton$bar = F4(
-	function (stopped, secsPerc, _p1, _p0) {
-		var _p2 = _p1;
-		var _p3 = _p0;
-		var _p5 = _p3._0;
-		var _p4 = _p3._1;
-		return A2(
-			_elm_lang$svg$Svg$g,
-			{
-				ctor: '::',
-				_0: _elm_lang$svg$Svg_Attributes$transform(
-					_user$project$Util$translate(
-						{ctor: '_Tuple2', _0: _p2._0, _1: _p2._1})),
-				_1: {ctor: '[]'}
-			},
-			{
-				ctor: '::',
-				_0: A2(
-					_elm_lang$svg$Svg$rect,
-					{
-						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$x(
-							_elm_lang$core$Basics$toString((0 - _p5) / 2)),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$svg$Svg_Attributes$y(
-								_elm_lang$core$Basics$toString((0 - _p4) / 2)),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$svg$Svg_Attributes$width(
-									_elm_lang$core$Basics$toString(_p5)),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$svg$Svg_Attributes$height(
-										_elm_lang$core$Basics$toString(_p4)),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$svg$Svg_Attributes$fill('grey'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$stroke('black'),
-											_1: {ctor: '[]'}
-										}
-									}
-								}
-							}
-						}
-					},
-					{ctor: '[]'}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$svg$Svg$rect,
-						{
-							ctor: '::',
-							_0: _elm_lang$svg$Svg_Attributes$x(
-								_elm_lang$core$Basics$toString((0 - _p5) / 2)),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$svg$Svg_Attributes$y(
-									_elm_lang$core$Basics$toString((0 - _p4) / 2)),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$svg$Svg_Attributes$width(
-										_elm_lang$core$Basics$toString(_p5)),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$svg$Svg_Attributes$height(
-											_elm_lang$core$Basics$toString(_p4 * secsPerc)),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$fill(
-												stopped ? 'red' : 'orange'),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$stroke('none'),
-												_1: {ctor: '[]'}
-											}
-										}
-									}
-								}
-							}
-						},
-						{ctor: '[]'}),
-					_1: {ctor: '[]'}
-				}
-			});
-	});
-var _user$project$View_PauseButton$pause = F4(
-	function (_p6, stopped, challengeSecs, secsLeft) {
-		var _p7 = _p6;
-		var c2 = '#006600';
+var _user$project$View_PauseButton$pause = F5(
+	function (_p0, color, stopped, challengeSecs, secsLeft) {
+		var _p1 = _p0;
+		var c2 = _user$project$Util$toRgbaString(color);
 		var c1 = '#434343';
 		var box = function (x) {
 			return _folkertdev$one_true_path_experiment$Curve$linear(
@@ -22940,9 +22852,9 @@ var _user$project$View_PauseButton$pause = F4(
 			});
 	});
 var _user$project$View_PauseButton$view = function (model) {
-	var _p8 = {ctor: '_Tuple2', _0: 32, _1: 32};
-	var w = _p8._0;
-	var h = _p8._1;
+	var _p2 = {ctor: '_Tuple2', _0: 32, _1: 32};
+	var w = _p2._0;
+	var h = _p2._1;
 	return A2(
 		_elm_lang$svg$Svg$g,
 		{
@@ -22958,9 +22870,10 @@ var _user$project$View_PauseButton$view = function (model) {
 		},
 		{
 			ctor: '::',
-			_0: A4(
+			_0: A5(
 				_user$project$View_PauseButton$pause,
 				{ctor: '_Tuple2', _0: w, _1: h},
+				model.config.textColor,
 				_elm_lang$core$Native_Utils.eq(
 					model.mode,
 					_user$project$Types$Stopped(_user$project$Types$Pause)),
